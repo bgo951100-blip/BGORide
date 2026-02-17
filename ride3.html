@@ -1,0 +1,124 @@
+﻿<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ยืนยันการเรียกรถ</title>
+<link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --brand:#18a05e;
+  --brand-dark:#0b6c3c;
+  --accent:#1aa7a1;
+  --ink:#0f172a;
+  --muted:#6b7280;
+  --bg:#f2f6f5;
+  --card:#ffffff;
+  --line:#e5e7eb;
+  --shadow:0 18px 40px rgba(15,23,42,.08);
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:'Kanit',sans-serif;background:radial-gradient(circle at top,#e8f8f0 0%,#f7fbf9 40%,#f2f6f5 100%);color:var(--ink)}
+.app{max-width:520px;margin:0 auto;min-height:100vh;padding:0 16px 24px}
+.hero{padding:24px 8px 16px}
+.hero h1{margin:0;font-size:24px}
+.hero p{margin:4px 0 0;color:var(--muted)}
+.stepper{display:flex;gap:10px;margin:16px 0 8px}
+.step{flex:1;height:4px;border-radius:999px;background:var(--line)}
+.step.active{background:linear-gradient(90deg,var(--brand),var(--accent))}
+.card{background:var(--card);border-radius:20px;box-shadow:var(--shadow);padding:16px;margin-top:14px;border:1px solid #eef2f3}
+.map{height:180px;border-radius:18px;background:linear-gradient(120deg,#dff7ee,#f2fff9);position:relative;overflow:hidden;border:1px solid #d6f2e3}
+.map:before{content:"";position:absolute;inset:0;background:
+  radial-gradient(circle at 20% 30%,rgba(26,167,161,.25),transparent 42%),
+  radial-gradient(circle at 80% 20%,rgba(24,160,94,.2),transparent 45%),
+  radial-gradient(circle at 60% 80%,rgba(15,118,110,.18),transparent 42%);
+}
+.route{position:absolute;left:30px;right:30px;top:88px;height:8px;border-radius:999px;background:linear-gradient(90deg,var(--brand),var(--accent));box-shadow:0 8px 18px rgba(24,160,94,.35)}
+.pin{position:absolute;width:16px;height:16px;border-radius:50%;background:var(--brand);border:3px solid #fff;box-shadow:0 8px 16px rgba(0,0,0,.12)}
+.pin.start{left:24px;top:72px}
+.pin.end{right:24px;top:104px;background:#ef4444}
+.row{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px dashed #eef2f3;font-size:15px}
+.row:last-child{border-bottom:0}
+.badge{display:inline-flex;align-items:center;gap:6px;background:#ecfdf3;color:#065f46;border-radius:999px;padding:6px 10px;font-size:12px;font-weight:600}
+.price{font-size:26px;font-weight:700;color:#065f46}
+.primary{width:100%;padding:14px 16px;border:0;border-radius:16px;background:linear-gradient(135deg,var(--brand-dark),var(--brand));color:#fff;font-size:16px;font-weight:600;cursor:pointer;box-shadow:0 12px 24px rgba(24,160,94,.35)}
+.secondary{width:100%;padding:12px 16px;border:1px solid var(--line);border-radius:16px;background:#fff;color:var(--ink);font-size:15px;font-weight:500;cursor:pointer}
+</style>
+</head>
+<body>
+  <div class="app">
+    <header class="hero">
+      <h1>ยืนยันการเรียกรถ</h1>
+      <p>ตรวจสอบรายละเอียดก่อนยืนยัน</p>
+      <div class="stepper">
+        <div class="step active"></div>
+        <div class="step active"></div>
+        <div class="step active"></div>
+      </div>
+    </header>
+
+    <section class="card">
+      <div class="map" aria-label="แผนที่เส้นทาง">
+        <div class="route"></div>
+        <div class="pin start" title="จุดรับ"></div>
+        <div class="pin end" title="ปลายทาง"></div>
+      </div>
+    </section>
+
+    <section class="card" id="summary"></section>
+
+    <section class="card">
+      <div class="row">
+        <span>ค่าโดยสารประมาณ</span>
+        <span class="price">฿165</span>
+      </div>
+      <div class="row">
+        <span>โปรโมชัน</span>
+        <span class="badge">-฿20</span>
+      </div>
+      <div class="row">
+        <span>เวลารับโดยประมาณ</span>
+        <span>5-7 นาที</span>
+      </div>
+    </section>
+
+    <section class="card">
+      <button class="primary" onclick="confirmRide()">ยืนยันเรียกรถ</button>
+      <div style="height:10px"></div>
+      <button class="secondary" onclick="back()">ย้อนกลับ</button>
+    </section>
+  </div>
+
+<script>
+const s1 = JSON.parse(localStorage.getItem('ride_step1') || '{}');
+const s2 = JSON.parse(localStorage.getItem('ride_step2') || '{}');
+
+if(!s1.pickupAddress || !s1.dropoffAddress){
+  window.location.href = 'ride1.html';
+}
+if(!s2.name || !s2.phone){
+  window.location.href = 'ride2.html';
+}
+
+document.getElementById('summary').innerHTML = `
+  <div class="row"><span>จุดรับ</span><span>${s1.pickupAddress || '-'}</span></div>
+  <div class="row"><span>ปลายทาง</span><span>${s1.dropoffAddress || '-'}</span></div>
+  <div class="row"><span>ประเภทรถ</span><span>${s1.vehicle || '-'}</span></div>
+  <div class="row"><span>ผู้โดยสาร</span><span>${s2.name || '-'}</span></div>
+  <div class="row"><span>เบอร์โทร</span><span>${s2.phone || '-'}</span></div>
+  <div class="row"><span>จำนวนคน</span><span>${s2.people || '-'}</span></div>
+  <div class="row"><span>หมายเหตุ</span><span>${s2.note || '-'}</span></div>
+`;
+
+function confirmRide(){
+  alert("เรียกรถสำเร็จ! คนขับกำลังมุ่งหน้าไปหาคุณ");
+  localStorage.clear();
+  window.location.href = 'ride1.html';
+}
+
+function back(){
+  window.location.href = 'ride2.html';
+}
+</script>
+</body>
+</html>
