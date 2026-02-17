@@ -1,0 +1,145 @@
+﻿<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>เรียกรถ - เลือกเส้นทาง</title>
+<link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --brand:#18a05e;
+  --brand-dark:#0b6c3c;
+  --accent:#1aa7a1;
+  --ink:#0f172a;
+  --muted:#6b7280;
+  --bg:#f2f6f5;
+  --card:#ffffff;
+  --line:#e5e7eb;
+  --shadow:0 18px 40px rgba(15,23,42,.08);
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:'Kanit',sans-serif;background:radial-gradient(circle at top,#e8f8f0 0%,#f7fbf9 40%,#f2f6f5 100%);color:var(--ink)}
+.app{max-width:520px;margin:0 auto;min-height:100vh;padding:0 16px 24px}
+.hero{padding:24px 8px 16px}
+.brand{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.logo{width:36px;height:36px;border-radius:12px;background:linear-gradient(135deg,var(--brand),var(--accent));display:grid;place-items:center;color:white;font-weight:700}
+.hero h1{margin:0;font-size:24px}
+.hero p{margin:4px 0 0;color:var(--muted)}
+.stepper{display:flex;gap:10px;margin:16px 0 8px}
+.step{flex:1;height:4px;border-radius:999px;background:var(--line)}
+.step.active{background:linear-gradient(90deg,var(--brand),var(--accent))}
+.card{background:var(--card);border-radius:20px;box-shadow:var(--shadow);padding:16px;margin-top:14px;border:1px solid #eef2f3}
+.map{height:220px;border-radius:18px;background:linear-gradient(120deg,#dff7ee,#f2fff9);position:relative;overflow:hidden;border:1px solid #d6f2e3}
+.map:before{content:"";position:absolute;inset:0;background:
+  radial-gradient(circle at 20% 30%,rgba(26,167,161,.25),transparent 42%),
+  radial-gradient(circle at 80% 20%,rgba(24,160,94,.2),transparent 45%),
+  radial-gradient(circle at 60% 80%,rgba(15,118,110,.18),transparent 42%);
+}
+.route{position:absolute;left:40px;right:40px;top:110px;height:8px;border-radius:999px;background:linear-gradient(90deg,var(--brand),var(--accent));box-shadow:0 8px 18px rgba(24,160,94,.35)}
+.pin{position:absolute;width:16px;height:16px;border-radius:50%;background:var(--brand);border:3px solid #fff;box-shadow:0 8px 16px rgba(0,0,0,.12)}
+.pin.start{left:32px;top:88px}
+.pin.end{right:32px;top:128px;background:#ef4444}
+.map-badge{position:absolute;bottom:14px;left:14px;background:#fff;border-radius:12px;padding:8px 10px;font-size:12px;color:var(--muted);box-shadow:0 8px 16px rgba(15,23,42,.12)}
+.label{font-size:14px;color:var(--muted);margin:12px 0 6px}
+.input{width:100%;padding:12px 14px;border-radius:14px;border:1px solid var(--line);font-family:'Kanit',sans-serif;font-size:15px;background:#f9fafb}
+.row{display:flex;gap:10px}
+.row .field{flex:1}
+.chips{display:flex;gap:10px;margin-top:6px}
+.chip{flex:1;padding:12px;border-radius:14px;border:1px solid var(--line);background:#fff;cursor:pointer;text-align:center;font-weight:600}
+.chip.active{border-color:var(--brand);background:#ecfdf3;color:#065f46;box-shadow:0 8px 18px rgba(24,160,94,.2)}
+.primary{width:100%;padding:14px 16px;border:0;border-radius:16px;background:linear-gradient(135deg,var(--brand-dark),var(--brand));color:#fff;font-size:16px;font-weight:600;cursor:pointer;box-shadow:0 12px 24px rgba(24,160,94,.35)}
+.helper{font-size:12px;color:var(--muted);margin-top:6px}
+.floater{display:flex;justify-content:space-between;align-items:center;margin-top:14px;padding:12px 14px;border-radius:14px;border:1px dashed #d1fae5;background:#f0fdf4;color:#065f46;font-size:13px}
+</style>
+</head>
+<body>
+  <div class="app">
+    <header class="hero">
+      <div class="brand">
+        <div class="logo">B</div>
+        <div>
+          <div style="font-weight:600">Bgo ride</div>
+          <div style="font-size:12px;color:var(--muted)">เรียกรถง่าย ภายในไม่กี่คลิก</div>
+        </div>
+      </div>
+      <h1>เลือกเส้นทาง</h1>
+      <p>ระบุจุดรับและปลายทางเพื่อคำนวณราคาโดยประมาณ</p>
+      <div class="stepper">
+        <div class="step active"></div>
+        <div class="step"></div>
+        <div class="step"></div>
+      </div>
+    </header>
+
+    <section class="card">
+      <div class="map" aria-label="แผนที่เส้นทาง">
+        <div class="route"></div>
+        <div class="pin start" title="จุดรับ"></div>
+        <div class="pin end" title="ปลายทาง"></div>
+        <div class="map-badge">ETA 12 นาที • 6.4 กม.</div>
+      </div>
+      <div class="floater">
+        <span>ระบบจะเลือกคนขับที่ใกล้ที่สุดให้โดยอัตโนมัติ</span>
+        <span>4.9★</span>
+      </div>
+    </section>
+
+    <section class="card">
+      <div class="field">
+        <div class="label">จุดรับผู้โดยสาร</div>
+        <input class="input" id="pickup" placeholder="เช่น BTS อโศก ทางออก 3">
+      </div>
+      <div class="field">
+        <div class="label">ปลายทาง</div>
+        <input class="input" id="dropoff" placeholder="เช่น เซ็นทรัลเวิลด์">
+      </div>
+      <div class="field">
+        <div class="label">ประเภทรถ</div>
+        <div class="chips" id="vehicleChips">
+          <button type="button" class="chip active" data-vehicle="มอไซ">มอไซ</button>
+          <button type="button" class="chip" data-vehicle="รถยนต์">รถยนต์</button>
+        </div>
+      </div>
+      <div class="helper">รองรับการค้นหาจากชื่อสถานที่หรือที่อยู่</div>
+      <button class="primary" onclick="next()">ถัดไป</button>
+    </section>
+  </div>
+
+<script>
+function next(){
+  const pickup = document.getElementById('pickup').value.trim();
+  const dropoff = document.getElementById('dropoff').value.trim();
+  const vehicle = document.querySelector('#vehicleChips .chip.active')?.dataset.vehicle || 'มอไซ';
+
+  if(!pickup || !dropoff){
+    alert("กรุณากรอกจุดรับและปลายทางให้ครบ");
+    return;
+  }
+
+  localStorage.setItem('ride_step1', JSON.stringify({
+    pickupAddress: pickup,
+    dropoffAddress: dropoff,
+    vehicle: vehicle
+  }));
+
+  window.location.href = 'ride2.html';
+}
+
+const saved = JSON.parse(localStorage.getItem('ride_step1') || '{}');
+if(saved.pickupAddress){document.getElementById('pickup').value = saved.pickupAddress;}
+if(saved.dropoffAddress){document.getElementById('dropoff').value = saved.dropoffAddress;}
+if(saved.vehicle){
+  document.querySelectorAll('#vehicleChips .chip').forEach(chip => {
+    chip.classList.toggle('active', chip.dataset.vehicle === saved.vehicle);
+  });
+}
+
+document.querySelectorAll('#vehicleChips .chip').forEach(chip => {
+  chip.addEventListener('click', () => {
+    document.querySelectorAll('#vehicleChips .chip').forEach(c => c.classList.remove('active'));
+    chip.classList.add('active');
+  });
+});
+</script>
+</body>
+</html>
