@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="th">
 <head>
 <meta charset="UTF-8">
@@ -18,6 +18,7 @@
   --shadow:0 18px 40px rgba(15,23,42,.08);
 }
 *{box-sizing:border-box}
+html,body{height:100%}
 body{margin:0;font-family:'Kanit',sans-serif;background:radial-gradient(circle at top,#e8f8f0 0%,#f7fbf9 40%,#f2f6f5 100%);color:var(--ink)}
 .app{max-width:520px;margin:0 auto;min-height:100vh;padding:0 16px 24px}
 .hero{padding:24px 8px 16px}
@@ -29,27 +30,31 @@ body{margin:0;font-family:'Kanit',sans-serif;background:radial-gradient(circle a
 .step{flex:1;height:4px;border-radius:999px;background:var(--line)}
 .step.active{background:linear-gradient(90deg,var(--brand),var(--accent))}
 .card{background:var(--card);border-radius:20px;box-shadow:var(--shadow);padding:16px;margin-top:14px;border:1px solid #eef2f3}
-.map{height:220px;border-radius:18px;background:linear-gradient(120deg,#dff7ee,#f2fff9);position:relative;overflow:hidden;border:1px solid #d6f2e3}
-.map:before{content:"";position:absolute;inset:0;background:
-  radial-gradient(circle at 20% 30%,rgba(26,167,161,.25),transparent 42%),
-  radial-gradient(circle at 80% 20%,rgba(24,160,94,.2),transparent 45%),
-  radial-gradient(circle at 60% 80%,rgba(15,118,110,.18),transparent 42%);
-}
-.route{position:absolute;left:40px;right:40px;top:110px;height:8px;border-radius:999px;background:linear-gradient(90deg,var(--brand),var(--accent));box-shadow:0 8px 18px rgba(24,160,94,.35)}
-.pin{position:absolute;width:16px;height:16px;border-radius:50%;background:var(--brand);border:3px solid #fff;box-shadow:0 8px 16px rgba(0,0,0,.12)}
-.pin.start{left:32px;top:88px}
-.pin.end{right:32px;top:128px;background:#ef4444}
-.map-badge{position:absolute;bottom:14px;left:14px;background:#fff;border-radius:12px;padding:8px 10px;font-size:12px;color:var(--muted);box-shadow:0 8px 16px rgba(15,23,42,.12)}
 .label{font-size:14px;color:var(--muted);margin:12px 0 6px}
 .input{width:100%;padding:12px 14px;border-radius:14px;border:1px solid var(--line);font-family:'Kanit',sans-serif;font-size:15px;background:#f9fafb}
-.row{display:flex;gap:10px}
-.row .field{flex:1}
 .chips{display:flex;gap:10px;margin-top:6px}
 .chip{flex:1;padding:12px;border-radius:14px;border:1px solid var(--line);background:#fff;cursor:pointer;text-align:center;font-weight:600}
 .chip.active{border-color:var(--brand);background:#ecfdf3;color:#065f46;box-shadow:0 8px 18px rgba(24,160,94,.2)}
 .primary{width:100%;padding:14px 16px;border:0;border-radius:16px;background:linear-gradient(135deg,var(--brand-dark),var(--brand));color:#fff;font-size:16px;font-weight:600;cursor:pointer;box-shadow:0 12px 24px rgba(24,160,94,.35)}
 .helper{font-size:12px;color:var(--muted);margin-top:6px}
-.floater{display:flex;justify-content:space-between;align-items:center;margin-top:14px;padding:12px 14px;border-radius:14px;border:1px dashed #d1fae5;background:#f0fdf4;color:#065f46;font-size:13px}
+.summary-row{display:flex;justify-content:space-between;align-items:flex-start;margin-top:8px;gap:14px;font-size:14px}
+.summary-row span:last-child{text-align:right;word-break:break-word;max-width:60%}
+.map{width:100%;height:280px;border-radius:16px;overflow:hidden;margin-top:10px;background:#e5e7eb;border:2px solid transparent}
+.map.fullscreen{position:fixed;inset:0;margin:0;height:100dvh;width:100dvw;border-radius:0;z-index:999}
+.map-backdrop{position:fixed;inset:0;background:rgba(0,0,0,.55);opacity:0;pointer-events:none;z-index:998;transition:opacity .2s ease}
+.map-backdrop.show{opacity:1;pointer-events:auto}
+.map-toolbar{position:fixed;top:10px;left:10px;right:10px;z-index:1000;display:none;gap:8px}
+.map-toolbar.show{display:flex}
+.map-toolbar input{flex:1;border-radius:12px;border:1px solid #d1d5db;padding:12px;font-family:'Kanit',sans-serif}
+.map-hint{position:fixed;bottom:16px;left:16px;right:16px;z-index:1000;display:none}
+.map-hint.show{display:block}
+.map-hint .primary{width:100%;box-shadow:none}
+.map.active-pickup{border-color:#0b6c3c}
+.map.active-dropoff{border-color:#1aa7a1}
+body.map-open{overflow:hidden}
+.secondary{width:100%;padding:12px 16px;border:1px solid var(--line);border-radius:16px;background:#fff;color:var(--ink);font-size:15px;font-weight:500;cursor:pointer}
+.floater{display:flex;justify-content:space-between;align-items:center;margin-top:14px;padding:12px 14px;border-radius:14px;border:1px dashed #d1fae5;background:#f0fdf4;color:#065f46;font-size:13px;gap:14px}
+@media (max-width:600px){.map{height:340px}}
 </style>
 </head>
 <body>
@@ -63,7 +68,7 @@ body{margin:0;font-family:'Kanit',sans-serif;background:radial-gradient(circle a
         </div>
       </div>
       <h1>เลือกเส้นทาง</h1>
-      <p>ระบุจุดรับและปลายทางเพื่อคำนวณราคาโดยประมาณ</p>
+      <p>ปักหมุดจุดรับและปลายทางเพื่อคำนวณระยะเวลาและราคาโดยประมาณ</p>
       <div class="stepper">
         <div class="step active"></div>
         <div class="step"></div>
@@ -72,74 +77,388 @@ body{margin:0;font-family:'Kanit',sans-serif;background:radial-gradient(circle a
     </header>
 
     <section class="card">
-      <div class="map" aria-label="แผนที่เส้นทาง">
-        <div class="route"></div>
-        <div class="pin start" title="จุดรับ"></div>
-        <div class="pin end" title="ปลายทาง"></div>
-        <div class="map-badge">ETA 12 นาที • 6.4 กม.</div>
+      <div class="label">จุดรับผู้โดยสาร</div>
+      <button id="pickupBtn" class="secondary" type="button">ค้นหาจุดรับบนแผนที่</button>
+      <div class="summary-row"><span>ที่อยู่จุดรับ</span><span id="pickupText">-</span></div>
+
+      <div class="label">ปลายทาง</div>
+      <button id="dropoffBtn" class="secondary" type="button">ค้นหาปลายทางบนแผนที่</button>
+      <div class="summary-row"><span>ที่อยู่ปลายทาง</span><span id="dropoffText">-</span></div>
+
+      <div class="label">ประเภทรถ</div>
+      <div class="chips" id="vehicleChips">
+        <button type="button" class="chip active" data-vehicle="มอไซ">มอไซ</button>
+        <button type="button" class="chip" data-vehicle="รถยนต์">รถยนต์</button>
       </div>
-      <div class="floater">
-        <span>ระบบจะเลือกคนขับที่ใกล้ที่สุดให้โดยอัตโนมัติ</span>
-        <span>4.9★</span>
-      </div>
+      <div class="helper">รองรับการค้นหาจากชื่อสถานที่หรือที่อยู่</div>
     </section>
 
     <section class="card">
-      <div class="field">
-        <div class="label">จุดรับผู้โดยสาร</div>
-        <input class="input" id="pickup" placeholder="เช่น BTS อโศก ทางออก 3">
+      <div class="label">แผนที่</div>
+      <div class="summary-row"><span>สถานะการเลือก</span><span id="activeHint">แตะปุ่มจุดรับหรือปลายทางก่อน</span></div>
+      <div class="map" id="map"></div>
+      <div class="floater">
+        <span id="etaText">ETA -</span>
+        <span id="distanceText">ระยะทาง -</span>
       </div>
-      <div class="field">
-        <div class="label">ปลายทาง</div>
-        <input class="input" id="dropoff" placeholder="เช่น เซ็นทรัลเวิลด์">
-      </div>
-      <div class="field">
-        <div class="label">ประเภทรถ</div>
-        <div class="chips" id="vehicleChips">
-          <button type="button" class="chip active" data-vehicle="มอไซ">มอไซ</button>
-          <button type="button" class="chip" data-vehicle="รถยนต์">รถยนต์</button>
-        </div>
-      </div>
-      <div class="helper">รองรับการค้นหาจากชื่อสถานที่หรือที่อยู่</div>
-      <button class="primary" onclick="next()">ถัดไป</button>
+      <div class="summary-row"><span>ราคาโดยประมาณ</span><span id="fareText">-</span></div>
+    </section>
+
+    <section class="card">
+      <button class="primary" id="nextBtn" type="button">ถัดไป</button>
     </section>
   </div>
 
-<script>
-function next(){
-  const pickup = document.getElementById('pickup').value.trim();
-  const dropoff = document.getElementById('dropoff').value.trim();
-  const vehicle = document.querySelector('#vehicleChips .chip.active')?.dataset.vehicle || 'มอไซ';
+  <div id="mapBackdrop" class="map-backdrop"></div>
+  <div id="mapToolbar" class="map-toolbar">
+    <input id="mapSearch" placeholder="ค้นหาสถานที่หรือที่อยู่">
+    <button id="closeMap" class="secondary" type="button">ปิด</button>
+  </div>
+  <div id="mapHint" class="map-hint">
+    <button id="confirmPoint" class="primary" type="button">ยืนยันจุดนี้</button>
+  </div>
 
-  if(!pickup || !dropoff){
-    alert("กรุณากรอกจุดรับและปลายทางให้ครบ");
+<script>
+const pickupBtn = document.getElementById('pickupBtn');
+const dropoffBtn = document.getElementById('dropoffBtn');
+const pickupText = document.getElementById('pickupText');
+const dropoffText = document.getElementById('dropoffText');
+const nextBtn = document.getElementById('nextBtn');
+const mapEl = document.getElementById('map');
+const activeHint = document.getElementById('activeHint');
+const mapBackdrop = document.getElementById('mapBackdrop');
+const mapToolbar = document.getElementById('mapToolbar');
+const mapSearch = document.getElementById('mapSearch');
+const closeMapBtn = document.getElementById('closeMap');
+const mapHint = document.getElementById('mapHint');
+const confirmPoint = document.getElementById('confirmPoint');
+const etaText = document.getElementById('etaText');
+const distanceText = document.getElementById('distanceText');
+const fareText = document.getElementById('fareText');
+
+let map;
+let geocoder;
+let pickupMarker;
+let dropoffMarker;
+let directionsService;
+let directionsRenderer;
+let activeField = 'pickup';
+let distanceKm = null;
+let etaMinutes = null;
+
+const DEFAULT_CENTER = { lat: 5.77434, lng: 101.07231 };
+const DEFAULT_PLACE = 'หอนาฬิกาเทศบาลเมืองเบตง';
+const VEHICLE_PRICING = {
+  'มอไซ': { base: 35, perKm: 8 },
+  'รถยนต์': { base: 60, perKm: 12 }
+};
+
+function getSelectedVehicle(){
+  return document.querySelector('#vehicleChips .chip.active')?.dataset.vehicle || 'มอไซ';
+}
+
+function getEstimatedFare(){
+  if(distanceKm === null){
+    return null;
+  }
+  const pricing = VEHICLE_PRICING[getSelectedVehicle()] || VEHICLE_PRICING['มอไซ'];
+  return Math.round(pricing.base + (distanceKm * pricing.perKm));
+}
+
+function updateEstimate(){
+  if(distanceKm === null){
+    etaText.textContent = 'ETA -';
+    distanceText.textContent = 'ระยะทาง -';
+    fareText.textContent = '-';
+    return;
+  }
+  const estimatedFare = getEstimatedFare();
+  etaText.textContent = etaMinutes ? `ETA ${etaMinutes} นาที` : 'ETA -';
+  distanceText.textContent = `ระยะทาง ${distanceKm.toFixed(1)} กม.`;
+  fareText.textContent = estimatedFare !== null ? `${estimatedFare.toLocaleString('th-TH')} บาท` : '-';
+}
+
+function updateStorage(){
+  const payload = {
+    pickupAddress: pickupText.textContent === '-' ? '' : pickupText.textContent,
+    dropoffAddress: dropoffText.textContent === '-' ? '' : dropoffText.textContent,
+    pickupLat: pickupMarker ? pickupMarker.getPosition().lat() : null,
+    pickupLng: pickupMarker ? pickupMarker.getPosition().lng() : null,
+    dropoffLat: dropoffMarker ? dropoffMarker.getPosition().lat() : null,
+    dropoffLng: dropoffMarker ? dropoffMarker.getPosition().lng() : null,
+    vehicle: getSelectedVehicle(),
+    distanceKm,
+    etaMinutes,
+    estimatedFare: getEstimatedFare()
+  };
+  localStorage.setItem('ride_step1', JSON.stringify(payload));
+}
+
+function calcRoute(){
+  if(!pickupMarker || !dropoffMarker){
+    distanceKm = null;
+    etaMinutes = null;
+    directionsRenderer.set('directions', null);
+    updateEstimate();
+    updateStorage();
+    syncButton();
     return;
   }
 
-  localStorage.setItem('ride_step1', JSON.stringify({
-    pickupAddress: pickup,
-    dropoffAddress: dropoff,
-    vehicle: vehicle
-  }));
+  directionsService.route({
+    origin: pickupMarker.getPosition(),
+    destination: dropoffMarker.getPosition(),
+    travelMode: google.maps.TravelMode.DRIVING
+  }, (result, status) => {
+    if(status !== 'OK' || !result.routes || !result.routes[0]){
+      distanceKm = null;
+      etaMinutes = null;
+      directionsRenderer.set('directions', null);
+      updateEstimate();
+      updateStorage();
+      syncButton();
+      return;
+    }
 
-  window.location.href = 'ride2.html';
-}
-
-const saved = JSON.parse(localStorage.getItem('ride_step1') || '{}');
-if(saved.pickupAddress){document.getElementById('pickup').value = saved.pickupAddress;}
-if(saved.dropoffAddress){document.getElementById('dropoff').value = saved.dropoffAddress;}
-if(saved.vehicle){
-  document.querySelectorAll('#vehicleChips .chip').forEach(chip => {
-    chip.classList.toggle('active', chip.dataset.vehicle === saved.vehicle);
+    directionsRenderer.setDirections(result);
+    const leg = result.routes[0].legs[0];
+    distanceKm = leg.distance.value / 1000;
+    etaMinutes = Math.max(1, Math.round(leg.duration.value / 60));
+    updateEstimate();
+    updateStorage();
+    syncButton();
   });
 }
 
-document.querySelectorAll('#vehicleChips .chip').forEach(chip => {
+function setMarker(position, type){
+  if(type === 'pickup'){
+    if(!pickupMarker){
+      pickupMarker = new google.maps.Marker({map, position, label:'A', draggable:true});
+      pickupMarker.addListener('dragend', () => {
+        const pos = pickupMarker.getPosition();
+        reverseGeocode(pos, (address) => {
+          pickupText.textContent = address;
+          updateStorage();
+          calcRoute();
+        });
+      });
+    } else {
+      pickupMarker.setPosition(position);
+    }
+  } else {
+    if(!dropoffMarker){
+      dropoffMarker = new google.maps.Marker({map, position, label:'B', draggable:true});
+      dropoffMarker.addListener('dragend', () => {
+        const pos = dropoffMarker.getPosition();
+        reverseGeocode(pos, (address) => {
+          dropoffText.textContent = address;
+          updateStorage();
+          calcRoute();
+        });
+      });
+    } else {
+      dropoffMarker.setPosition(position);
+    }
+  }
+
+  map.panTo(position);
+  calcRoute();
+}
+
+function setActiveField(type){
+  activeField = type;
+  if(type === 'pickup'){
+    mapEl.classList.add('active-pickup');
+    mapEl.classList.remove('active-dropoff');
+    activeHint.textContent = 'กำลังเลือกจุดรับผู้โดยสาร';
+    confirmPoint.textContent = 'ยืนยันจุดรับผู้โดยสาร';
+  } else {
+    mapEl.classList.add('active-dropoff');
+    mapEl.classList.remove('active-pickup');
+    activeHint.textContent = 'กำลังเลือกปลายทาง';
+    confirmPoint.textContent = 'ยืนยันปลายทาง';
+  }
+}
+
+function fitBoundsIfReady(){
+  if(pickupMarker && dropoffMarker){
+    const bounds = new google.maps.LatLngBounds();
+    bounds.extend(pickupMarker.getPosition());
+    bounds.extend(dropoffMarker.getPosition());
+    map.fitBounds(bounds, 40);
+  }
+}
+
+function reverseGeocode(latLng, cb){
+  geocoder.geocode({location: latLng}, (results, status) => {
+    if(status === 'OK' && results && results[0]){
+      cb(results[0].formatted_address);
+      return;
+    }
+    cb('ไม่พบที่อยู่');
+  });
+}
+
+function syncVehicle(){
+  const savedVehicle = getSelectedVehicle();
+  document.querySelectorAll('#vehicleChips .chip').forEach((chip) => {
+    chip.classList.toggle('active', chip.dataset.vehicle === savedVehicle);
+  });
+  updateEstimate();
+  updateStorage();
+}
+
+function syncButton(){
+  const ok = pickupText.textContent.trim() !== '-' && dropoffText.textContent.trim() !== '-' && distanceKm !== null;
+  nextBtn.disabled = !ok;
+}
+
+window.initMap = function initMap(){
+  map = new google.maps.Map(document.getElementById('map'), {
+    center: DEFAULT_CENTER,
+    zoom: 13,
+    disableDefaultUI: true,
+    zoomControl: true
+  });
+  geocoder = new google.maps.Geocoder();
+  directionsService = new google.maps.DirectionsService();
+  directionsRenderer = new google.maps.DirectionsRenderer({ map, suppressMarkers: true, preserveViewport: true });
+
+  const searchAuto = new google.maps.places.Autocomplete(mapSearch);
+  searchAuto.bindTo('bounds', map);
+  searchAuto.addListener('place_changed', () => {
+    const place = searchAuto.getPlace();
+    if(!place.geometry){
+      return;
+    }
+    const target = activeField || 'pickup';
+    setMarker(place.geometry.location, target);
+    if(target === 'pickup') pickupText.textContent = place.formatted_address || pickupText.textContent;
+    if(target === 'dropoff') dropoffText.textContent = place.formatted_address || dropoffText.textContent;
+    updateStorage();
+    fitBoundsIfReady();
+  });
+
+  map.addListener('click', (e) => {
+    const target = activeField || (!pickupMarker ? 'pickup' : 'dropoff');
+    setMarker(e.latLng, target);
+    reverseGeocode(e.latLng, (address) => {
+      if(target === 'pickup') pickupText.textContent = address;
+      if(target === 'dropoff') dropoffText.textContent = address;
+      updateStorage();
+      fitBoundsIfReady();
+    });
+  });
+
+  try{
+    const saved = JSON.parse(localStorage.getItem('ride_step1') || '{}');
+    if(saved.pickupAddress) pickupText.textContent = saved.pickupAddress;
+    if(saved.dropoffAddress) dropoffText.textContent = saved.dropoffAddress;
+    if(saved.vehicle){
+      document.querySelectorAll('#vehicleChips .chip').forEach((chip) => {
+        chip.classList.toggle('active', chip.dataset.vehicle === saved.vehicle);
+      });
+    }
+    if(saved.pickupLat && saved.pickupLng){
+      setMarker(new google.maps.LatLng(saved.pickupLat, saved.pickupLng), 'pickup');
+    }
+    if(saved.dropoffLat && saved.dropoffLng){
+      setMarker(new google.maps.LatLng(saved.dropoffLat, saved.dropoffLng), 'dropoff');
+    }
+    if(saved.distanceKm !== null && saved.distanceKm !== undefined){
+      distanceKm = Number(saved.distanceKm);
+    }
+    if(saved.etaMinutes !== null && saved.etaMinutes !== undefined){
+      etaMinutes = Number(saved.etaMinutes);
+    }
+    updateEstimate();
+    if(saved.pickupLat && saved.pickupLng && saved.dropoffLat && saved.dropoffLng){
+      fitBoundsIfReady();
+    }
+  }catch(e){}
+
+  if((pickupText.textContent === '-' || !pickupText.textContent.trim()) && !pickupMarker){
+    if(navigator.geolocation){
+      navigator.geolocation.getCurrentPosition(
+        (pos) => {
+          const loc = new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude);
+          map.setCenter(loc);
+          setActiveField('pickup');
+          setMarker(loc, 'pickup');
+          reverseGeocode(loc, (address) => {
+            pickupText.textContent = address;
+            updateStorage();
+            syncButton();
+          });
+        },
+        () => {
+          geocoder.geocode({address: DEFAULT_PLACE}, (results, status) => {
+            if(status === 'OK' && results && results[0]){
+              const loc = results[0].geometry.location;
+              map.setCenter(loc);
+              setActiveField('pickup');
+              setMarker(loc, 'pickup');
+              pickupText.textContent = results[0].formatted_address || pickupText.textContent;
+              updateStorage();
+              syncButton();
+            }
+          });
+        },
+        {enableHighAccuracy:true, timeout:8000, maximumAge:60000}
+      );
+    }
+  }
+
+  syncButton();
+};
+
+function openMap(type){
+  setActiveField(type);
+  document.body.classList.add('map-open');
+  mapBackdrop.classList.add('show');
+  mapEl.classList.add('fullscreen');
+  mapToolbar.classList.add('show');
+  mapHint.classList.add('show');
+  mapSearch.value = '';
+  setTimeout(() => {
+    google.maps.event.trigger(map, 'resize');
+    if(type === 'pickup' && pickupMarker) map.panTo(pickupMarker.getPosition());
+    if(type === 'dropoff' && dropoffMarker) map.panTo(dropoffMarker.getPosition());
+  }, 50);
+}
+
+function closeMap(){
+  document.body.classList.remove('map-open');
+  mapBackdrop.classList.remove('show');
+  mapEl.classList.remove('fullscreen');
+  mapToolbar.classList.remove('show');
+  mapHint.classList.remove('show');
+}
+
+pickupBtn.addEventListener('click', () => openMap('pickup'));
+dropoffBtn.addEventListener('click', () => openMap('dropoff'));
+mapBackdrop.addEventListener('click', closeMap);
+closeMapBtn.addEventListener('click', closeMap);
+confirmPoint.addEventListener('click', closeMap);
+nextBtn.addEventListener('click', () => {
+  const pickup = pickupText.textContent.trim();
+  const dropoff = dropoffText.textContent.trim();
+  if(!pickup || !dropoff || pickup === '-' || dropoff === '-' || distanceKm === null){
+    syncButton();
+    return;
+  }
+  updateStorage();
+  window.location.href = 'ride2.html';
+});
+
+document.querySelectorAll('#vehicleChips .chip').forEach((chip) => {
   chip.addEventListener('click', () => {
-    document.querySelectorAll('#vehicleChips .chip').forEach(c => c.classList.remove('active'));
+    document.querySelectorAll('#vehicleChips .chip').forEach((c) => c.classList.remove('active'));
     chip.classList.add('active');
+    syncVehicle();
   });
 });
 </script>
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB4eIoOargBmLJWifYrlTcSklmi7IqtyA8&libraries=places&callback=initMap"></script>
 </body>
 </html>
