@@ -12,7 +12,6 @@
   --accent:#1aa7a1;
   --ink:#0f172a;
   --muted:#6b7280;
-  --bg:#f2f6f5;
   --card:#ffffff;
   --line:#e5e7eb;
   --shadow:0 18px 40px rgba(15,23,42,.08);
@@ -37,8 +36,9 @@ body{margin:0;font-family:'Kanit',sans-serif;background:radial-gradient(circle a
 .pin{position:absolute;width:16px;height:16px;border-radius:50%;background:var(--brand);border:3px solid #fff;box-shadow:0 8px 16px rgba(0,0,0,.12)}
 .pin.start{left:24px;top:72px}
 .pin.end{right:24px;top:104px;background:#ef4444}
-.row{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px dashed #eef2f3;font-size:15px}
+.row{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px dashed #eef2f3;font-size:15px;gap:14px}
 .row:last-child{border-bottom:0}
+.row span:last-child{text-align:right;max-width:58%;word-break:break-word}
 .badge{display:inline-flex;align-items:center;gap:6px;background:#ecfdf3;color:#065f46;border-radius:999px;padding:6px 10px;font-size:12px;font-weight:600}
 .price{font-size:26px;font-weight:700;color:#065f46}
 .primary{width:100%;padding:14px 16px;border:0;border-radius:16px;background:linear-gradient(135deg,var(--brand-dark),var(--brand));color:#fff;font-size:16px;font-weight:600;cursor:pointer;box-shadow:0 12px 24px rgba(24,160,94,.35)}
@@ -94,26 +94,55 @@ const s1 = JSON.parse(localStorage.getItem('ride_step1') || '{}');
 const s2 = JSON.parse(localStorage.getItem('ride_step2') || '{}');
 
 if(!s1.pickupAddress || !s1.dropoffAddress){
-  window.location.href = 'ride1.html';
+  window.location.href = 'index.html';
 }
 if(!s2.name || !s2.phone){
   window.location.href = 'ride2.html';
 }
 
+function escapeHtml(value){
+  return String(value || '-')
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+
+const estimatedFare = s1.vehicle === 'รถยนต์' ? 220 : 165;
+
 document.getElementById('summary').innerHTML = `
-  <div class="row"><span>จุดรับ</span><span>${s1.pickupAddress || '-'}</span></div>
-  <div class="row"><span>ปลายทาง</span><span>${s1.dropoffAddress || '-'}</span></div>
-  <div class="row"><span>ประเภทรถ</span><span>${s1.vehicle || '-'}</span></div>
-  <div class="row"><span>ผู้โดยสาร</span><span>${s2.name || '-'}</span></div>
-  <div class="row"><span>เบอร์โทร</span><span>${s2.phone || '-'}</span></div>
-  <div class="row"><span>จำนวนคน</span><span>${s2.people || '-'}</span></div>
-  <div class="row"><span>หมายเหตุ</span><span>${s2.note || '-'}</span></div>
+  <div class="row"><span>จุดรับ</span><span>${escapeHtml(s1.pickupAddress)}</span></div>
+  <div class="row"><span>ปลายทาง</span><span>${escapeHtml(s1.dropoffAddress)}</span></div>
+  <div class="row"><span>ประเภทรถ</span><span>${escapeHtml(s1.vehicle)}</span></div>
+  <div class="row"><span>ผู้โดยสาร</span><span>${escapeHtml(s2.name)}</span></div>
+  <div class="row"><span>เบอร์โทร</span><span>${escapeHtml(s2.phone)}</span></div>
+  <div class="row"><span>จำนวนคน</span><span>${escapeHtml(s2.people)}</span></div>
+  <div class="row"><span>หมายเหตุ</span><span>${escapeHtml(s2.note)}</span></div>
 `;
 
+document.querySelector('.price').textContent = `฿${estimatedFare}`;
+
 function confirmRide(){
-  alert("เรียกรถสำเร็จ! คนขับกำลังมุ่งหน้าไปหาคุณ");
-  localStorage.clear();
-  window.location.href = 'ride1.html';
+  const rideDraft = {
+    service_type: 'ride',
+    pickup_address: s1.pickupAddress || '',
+    dropoff_address: s1.dropoffAddress || '',
+    vehicle_type: s1.vehicle || '',
+    customer_name: s2.name || '',
+    customer_phone: s2.phone || '',
+    passenger_count: s2.people || '',
+    customer_note: s2.note || '',
+    estimated_fare: estimatedFare,
+    submitted_at: new Date().toISOString(),
+    created_from: 'ride-prototype'
+  };
+
+  localStorage.setItem('ride_last_submission', JSON.stringify(rideDraft));
+  alert('เรียกรถสำเร็จ! คนขับกำลังมุ่งหน้าไปหาคุณ');
+  localStorage.removeItem('ride_step1');
+  localStorage.removeItem('ride_step2');
+  window.location.href = 'index.html';
 }
 
 function back(){
