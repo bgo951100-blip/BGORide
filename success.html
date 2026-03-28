@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>&#x0E40;&#x0E23;&#x0E35;&#x0E22;&#x0E01;&#x0E23;&#x0E16;&#x0E2A;&#x0E33;&#x0E40;&#x0E23;&#x0E47;&#x0E08;</title>
+<link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --brand:#18a05e;
+  --brand-dark:#0b6c3c;
+  --accent:#1aa7a1;
+  --ink:#0f172a;
+  --muted:#6b7280;
+  --card:#ffffff;
+  --line:#e5e7eb;
+  --shadow:0 18px 40px rgba(15,23,42,.08);
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:'Kanit',sans-serif;background:radial-gradient(circle at top,#e8f8f0 0%,#f7fbf9 40%,#f2f6f5 100%);color:var(--ink)}
+.app{max-width:520px;margin:0 auto;min-height:100vh;padding:24px 16px}
+.card{background:var(--card);border-radius:22px;box-shadow:var(--shadow);padding:18px;margin-top:14px;border:1px solid #eef2f3}
+.hero{padding:8px 4px 6px;text-align:center}
+.hero-badge{width:78px;height:78px;margin:0 auto 14px;border-radius:999px;background:linear-gradient(135deg,var(--brand-dark),var(--brand));display:grid;place-items:center;color:#fff;font-size:34px;box-shadow:0 18px 34px rgba(24,160,94,.25)}
+.hero h1{margin:0;font-size:26px}
+.hero p{margin:6px 0 0;color:var(--muted)}
+.row{display:flex;justify-content:space-between;align-items:flex-start;padding:10px 0;border-bottom:1px dashed #eef2f3;font-size:15px;gap:14px}
+.row:last-child{border-bottom:0}
+.row span:last-child{text-align:right;max-width:58%;word-break:break-word}
+.price{font-size:26px;font-weight:700;color:#065f46}
+.badge{display:inline-flex;align-items:center;gap:6px;background:#ecfdf3;color:#065f46;border-radius:999px;padding:6px 10px;font-size:12px;font-weight:600}
+.primary{width:100%;padding:14px 16px;border:0;border-radius:16px;background:linear-gradient(135deg,var(--brand-dark),var(--brand));color:#fff;font-size:16px;font-weight:600;cursor:pointer;box-shadow:0 12px 24px rgba(24,160,94,.35);font-family:'Kanit',sans-serif}
+.secondary{width:100%;padding:12px 16px;border:1px solid var(--line);border-radius:16px;background:#fff;color:var(--ink);font-size:15px;font-weight:500;cursor:pointer;font-family:'Kanit',sans-serif}
+.meta{font-size:13px;color:var(--muted)}
+</style>
+</head>
+<body>
+  <div class="app">
+    <section class="hero">
+      <div class="hero-badge">✓</div>
+      <h1>&#x0E40;&#x0E23;&#x0E35;&#x0E22;&#x0E01;&#x0E23;&#x0E16;&#x0E2A;&#x0E33;&#x0E40;&#x0E23;&#x0E47;&#x0E08;</h1>
+      <p>&#x0E23;&#x0E30;&#x0E1A;&#x0E1A;&#x0E44;&#x0E14;&#x0E49;&#x0E23;&#x0E31;&#x0E1A;&#x0E04;&#x0E33;&#x0E02;&#x0E2D;&#x0E40;&#x0E14;&#x0E34;&#x0E19;&#x0E17;&#x0E32;&#x0E07;&#x0E41;&#x0E25;&#x0E49;&#x0E27; &#x0E41;&#x0E25;&#x0E30;&#x0E01;&#x0E33;&#x0E25;&#x0E31;&#x0E07;&#x0E04;&#x0E49;&#x0E19;&#x0E2B;&#x0E32;&#x0E04;&#x0E19;&#x0E02;&#x0E31;&#x0E1A;&#x0E43;&#x0E2B;&#x0E49;&#x0E04;&#x0E38;&#x0E13;</p>
+    </section>
+
+    <section class="card" id="summary"></section>
+
+    <section class="card">
+      <div class="row">
+        <span>&#x0E04;&#x0E48;&#x0E32;&#x0E42;&#x0E14;&#x0E22;&#x0E2A;&#x0E32;&#x0E23;</span>
+        <span class="price" id="fareValue">-</span>
+      </div>
+      <div class="row">
+        <span>&#x0E23;&#x0E30;&#x0E22;&#x0E30;&#x0E17;&#x0E32;&#x0E07;</span>
+        <span id="distanceValue">-</span>
+      </div>
+      <div class="row">
+        <span>&#x0E40;&#x0E27;&#x0E25;&#x0E32;&#x0E23;&#x0E31;&#x0E1A;&#x0E42;&#x0E14;&#x0E22;&#x0E1B;&#x0E23;&#x0E30;&#x0E21;&#x0E32;&#x0E13;</span>
+        <span id="etaValue">-</span>
+      </div>
+      <div class="row">
+        <span>&#x0E2A;&#x0E16;&#x0E32;&#x0E19;&#x0E30;&#x0E04;&#x0E33;&#x0E2A;&#x0E31;&#x0E48;&#x0E07;</span>
+        <span class="badge">&#x0E01;&#x0E33;&#x0E25;&#x0E31;&#x0E07;&#x0E04;&#x0E49;&#x0E19;&#x0E2B;&#x0E32;&#x0E04;&#x0E19;&#x0E02;&#x0E31;&#x0E1A;</span>
+      </div>
+      <div class="row">
+        <span>&#x0E2A;&#x0E23;&#x0E49;&#x0E32;&#x0E07;&#x0E40;&#x0E21;&#x0E37;&#x0E48;&#x0E2D;</span>
+        <span class="meta" id="submittedAt">-</span>
+      </div>
+    </section>
+
+    <section class="card">
+      <button class="primary" type="button" onclick="goHome()">&#x0E40;&#x0E23;&#x0E35;&#x0E22;&#x0E01;&#x0E23;&#x0E16;&#x0E43;&#x0E2B;&#x0E21;&#x0E48;</button>
+      <div style="height:10px"></div>
+      <button class="secondary" type="button" onclick="openLatest()">&#x0E14;&#x0E39;&#x0E04;&#x0E33;&#x0E2A;&#x0E31;&#x0E48;&#x0E07;&#x0E25;&#x0E48;&#x0E32;&#x0E2A;&#x0E38;&#x0E14;&#x0E2D;&#x0E35;&#x0E01;&#x0E04;&#x0E23;&#x0E31;&#x0E49;&#x0E07;</button>
+    </section>
+  </div>
+
+<script>
+const TH = {
+  baht: '\u0E1A\u0E32\u0E17',
+  km: '\u0E01\u0E21.',
+  minute: '\u0E19\u0E32\u0E17\u0E35'
+};
+
+const ride = JSON.parse(localStorage.getItem('ride_last_submission') || '{}');
+if(!ride.pickup_address || !ride.dropoff_address){
+  window.location.href = 'index.html';
+}
+
+function escapeHtml(value){
+  return String(value || '-')
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+
+function formatDate(value){
+  if(!value) return '-';
+  const date = new Date(value);
+  if(Number.isNaN(date.getTime())) return value;
+  return date.toLocaleString('th-TH', {
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit'
+  });
+}
+
+document.getElementById('summary').innerHTML = `
+  <div class="row"><span>&#x0E08;&#x0E38;&#x0E14;&#x0E23;&#x0E31;&#x0E1A;</span><span>${escapeHtml(ride.pickup_address)}</span></div>
+  <div class="row"><span>&#x0E1B;&#x0E25;&#x0E32;&#x0E22;&#x0E17;&#x0E32;&#x0E07;</span><span>${escapeHtml(ride.dropoff_address)}</span></div>
+  <div class="row"><span>&#x0E1B;&#x0E23;&#x0E30;&#x0E40;&#x0E20;&#x0E17;&#x0E23;&#x0E16;</span><span>${escapeHtml(ride.vehicle_type)}</span></div>
+  <div class="row"><span>&#x0E1C;&#x0E39;&#x0E49;&#x0E42;&#x0E14;&#x0E22;&#x0E2A;&#x0E32;&#x0E23;</span><span>${escapeHtml(ride.customer_name)}</span></div>
+  <div class="row"><span>&#x0E40;&#x0E1A;&#x0E2D;&#x0E23;&#x0E4C;&#x0E42;&#x0E17;&#x0E23;</span><span>${escapeHtml(ride.customer_phone)}</span></div>
+  <div class="row"><span>&#x0E08;&#x0E33;&#x0E19;&#x0E27;&#x0E19;&#x0E04;&#x0E19;</span><span>${escapeHtml(ride.passenger_count)}</span></div>
+  <div class="row"><span>&#x0E2B;&#x0E21;&#x0E32;&#x0E22;&#x0E40;&#x0E2B;&#x0E15;&#x0E38;</span><span>${escapeHtml(ride.customer_note)}</span></div>
+`;
+
+document.getElementById('fareValue').textContent = ride.estimated_fare ? `${Number(ride.estimated_fare).toLocaleString('th-TH')} ${TH.baht}` : '-';
+document.getElementById('distanceValue').textContent = ride.distance_km ? `${Number(ride.distance_km).toFixed(1)} ${TH.km}` : '-';
+document.getElementById('etaValue').textContent = ride.eta_minutes ? `${Number(ride.eta_minutes)} ${TH.minute}` : '-';
+document.getElementById('submittedAt').textContent = formatDate(ride.submitted_at);
+
+function goHome(){
+  window.location.href = 'index.html';
+}
+
+function openLatest(){
+  window.location.reload();
+}
+</script>
+</body>
+</html>
