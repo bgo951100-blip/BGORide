@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ยืนยันการเรียกรถ</title>
+<title>&#x0E22;&#x0E37;&#x0E19;&#x0E22;&#x0E31;&#x0E19;&#x0E01;&#x0E32;&#x0E23;&#x0E40;&#x0E23;&#x0E35;&#x0E22;&#x0E01;&#x0E23;&#x0E16;</title>
 <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root{
@@ -30,16 +30,16 @@ body{margin:0;font-family:'Kanit',sans-serif;background:radial-gradient(circle a
 .row:last-child{border-bottom:0}
 .row span:last-child{text-align:right;max-width:58%;word-break:break-word}
 .price{font-size:26px;font-weight:700;color:#065f46}
-.primary{width:100%;padding:14px 16px;border:0;border-radius:16px;background:linear-gradient(135deg,var(--brand-dark),var(--brand));color:#fff;font-size:16px;font-weight:600;cursor:pointer;box-shadow:0 12px 24px rgba(24,160,94,.35)}
-.secondary{width:100%;padding:12px 16px;border:1px solid var(--line);border-radius:16px;background:#fff;color:var(--ink);font-size:15px;font-weight:500;cursor:pointer}
+.primary{width:100%;padding:14px 16px;border:0;border-radius:16px;background:linear-gradient(135deg,var(--brand-dark),var(--brand));color:#fff;font-size:16px;font-weight:600;cursor:pointer;box-shadow:0 12px 24px rgba(24,160,94,.35);font-family:'Kanit',sans-serif}
+.secondary{width:100%;padding:12px 16px;border:1px solid var(--line);border-radius:16px;background:#fff;color:var(--ink);font-size:15px;font-weight:500;cursor:pointer;font-family:'Kanit',sans-serif}
 .badge{display:inline-flex;align-items:center;gap:6px;background:#ecfdf3;color:#065f46;border-radius:999px;padding:6px 10px;font-size:12px;font-weight:600}
 </style>
 </head>
 <body>
   <div class="app">
     <header class="hero">
-      <h1>ยืนยันการเรียกรถ</h1>
-      <p>ตรวจสอบรายละเอียดก่อนยืนยัน</p>
+      <h1>&#x0E22;&#x0E37;&#x0E19;&#x0E22;&#x0E31;&#x0E19;&#x0E01;&#x0E32;&#x0E23;&#x0E40;&#x0E23;&#x0E35;&#x0E22;&#x0E01;&#x0E23;&#x0E16;</h1>
+      <p>&#x0E15;&#x0E23;&#x0E27;&#x0E08;&#x0E2A;&#x0E2D;&#x0E1A;&#x0E23;&#x0E32;&#x0E22;&#x0E25;&#x0E30;&#x0E40;&#x0E2D;&#x0E35;&#x0E22;&#x0E14;&#x0E01;&#x0E48;&#x0E2D;&#x0E19;&#x0E22;&#x0E37;&#x0E19;&#x0E22;&#x0E31;&#x0E19;</p>
       <div class="stepper">
         <div class="step active"></div>
         <div class="step active"></div>
@@ -51,31 +51,40 @@ body{margin:0;font-family:'Kanit',sans-serif;background:radial-gradient(circle a
 
     <section class="card">
       <div class="row">
-        <span>ค่าโดยสารประมาณ</span>
+        <span>&#x0E04;&#x0E48;&#x0E32;&#x0E42;&#x0E14;&#x0E22;&#x0E2A;&#x0E32;&#x0E23;&#x0E1B;&#x0E23;&#x0E30;&#x0E21;&#x0E32;&#x0E13;</span>
         <span class="price">-</span>
       </div>
       <div class="row">
-        <span>ระยะทาง</span>
+        <span>&#x0E23;&#x0E30;&#x0E22;&#x0E30;&#x0E17;&#x0E32;&#x0E07;</span>
         <span id="distanceValue">-</span>
       </div>
       <div class="row">
-        <span>เวลารับโดยประมาณ</span>
+        <span>&#x0E40;&#x0E27;&#x0E25;&#x0E32;&#x0E23;&#x0E31;&#x0E1A;&#x0E42;&#x0E14;&#x0E22;&#x0E1B;&#x0E23;&#x0E30;&#x0E21;&#x0E32;&#x0E13;</span>
         <span id="etaValue">-</span>
       </div>
       <div class="row">
-        <span>สถานะ</span>
-        <span class="badge">พร้อมค้นหาคนขับ</span>
+        <span>&#x0E2A;&#x0E16;&#x0E32;&#x0E19;&#x0E30;</span>
+        <span class="badge">&#x0E1E;&#x0E23;&#x0E49;&#x0E2D;&#x0E21;&#x0E04;&#x0E49;&#x0E19;&#x0E2B;&#x0E32;&#x0E04;&#x0E19;&#x0E02;&#x0E31;&#x0E1A;</span>
       </div>
     </section>
 
     <section class="card">
-      <button class="primary" onclick="confirmRide()">ยืนยันเรียกรถ</button>
+      <button class="primary" onclick="confirmRide()">&#x0E22;&#x0E37;&#x0E19;&#x0E22;&#x0E31;&#x0E19;&#x0E40;&#x0E23;&#x0E35;&#x0E22;&#x0E01;&#x0E23;&#x0E16;</button>
       <div style="height:10px"></div>
-      <button class="secondary" onclick="back()">ย้อนกลับ</button>
+      <button class="secondary" onclick="back()">&#x0E22;&#x0E49;&#x0E2D;&#x0E19;&#x0E01;&#x0E25;&#x0E31;&#x0E1A;</button>
     </section>
   </div>
 
 <script>
+const TH = {
+  motorcycle: '\u0E21\u0E2D\u0E40\u0E15\u0E2D\u0E23\u0E4C\u0E44\u0E0B\u0E04\u0E4C',
+  car: '\u0E23\u0E16\u0E22\u0E19\u0E15\u0E4C',
+  baht: '\u0E1A\u0E32\u0E17',
+  km: '\u0E01\u0E21.',
+  minute: '\u0E19\u0E32\u0E17\u0E35',
+  success: '\u0E40\u0E23\u0E35\u0E22\u0E01\u0E23\u0E16\u0E2A\u0E33\u0E40\u0E23\u0E47\u0E08! \u0E04\u0E19\u0E02\u0E31\u0E1A\u0E01\u0E33\u0E25\u0E31\u0E07\u0E21\u0E38\u0E48\u0E07\u0E2B\u0E19\u0E49\u0E32\u0E44\u0E1B\u0E2B\u0E32\u0E04\u0E38\u0E13'
+};
+
 const s1 = JSON.parse(localStorage.getItem('ride_step1') || '{}');
 const s2 = JSON.parse(localStorage.getItem('ride_step2') || '{}');
 
@@ -95,23 +104,24 @@ function escapeHtml(value){
     .replace(/'/g, '&#39;');
 }
 
-const estimatedFare = Number(s1.estimatedFare || (s1.vehicle === 'รถยนต์' ? 220 : 165));
+const fallbackFare = s1.vehicle === TH.car ? 220 : 165;
+const estimatedFare = Number(s1.estimatedFare || fallbackFare);
 const distanceKm = s1.distanceKm ? Number(s1.distanceKm) : null;
 const etaMinutes = s1.etaMinutes ? Number(s1.etaMinutes) : null;
 
 document.getElementById('summary').innerHTML = `
-  <div class="row"><span>จุดรับ</span><span>${escapeHtml(s1.pickupAddress)}</span></div>
-  <div class="row"><span>ปลายทาง</span><span>${escapeHtml(s1.dropoffAddress)}</span></div>
-  <div class="row"><span>ประเภทรถ</span><span>${escapeHtml(s1.vehicle)}</span></div>
-  <div class="row"><span>ผู้โดยสาร</span><span>${escapeHtml(s2.name)}</span></div>
-  <div class="row"><span>เบอร์โทร</span><span>${escapeHtml(s2.phone)}</span></div>
-  <div class="row"><span>จำนวนคน</span><span>${escapeHtml(s2.people)}</span></div>
-  <div class="row"><span>หมายเหตุ</span><span>${escapeHtml(s2.note)}</span></div>
+  <div class="row"><span>&#x0E08;&#x0E38;&#x0E14;&#x0E23;&#x0E31;&#x0E1A;</span><span>${escapeHtml(s1.pickupAddress)}</span></div>
+  <div class="row"><span>&#x0E1B;&#x0E25;&#x0E32;&#x0E22;&#x0E17;&#x0E32;&#x0E07;</span><span>${escapeHtml(s1.dropoffAddress)}</span></div>
+  <div class="row"><span>&#x0E1B;&#x0E23;&#x0E30;&#x0E40;&#x0E20;&#x0E17;&#x0E23;&#x0E16;</span><span>${escapeHtml(s1.vehicle)}</span></div>
+  <div class="row"><span>&#x0E1C;&#x0E39;&#x0E49;&#x0E42;&#x0E14;&#x0E22;&#x0E2A;&#x0E32;&#x0E23;</span><span>${escapeHtml(s2.name)}</span></div>
+  <div class="row"><span>&#x0E40;&#x0E1A;&#x0E2D;&#x0E23;&#x0E4C;&#x0E42;&#x0E17;&#x0E23;</span><span>${escapeHtml(s2.phone)}</span></div>
+  <div class="row"><span>&#x0E08;&#x0E33;&#x0E19;&#x0E27;&#x0E19;&#x0E04;&#x0E19;</span><span>${escapeHtml(s2.people)}</span></div>
+  <div class="row"><span>&#x0E2B;&#x0E21;&#x0E32;&#x0E22;&#x0E40;&#x0E2B;&#x0E15;&#x0E38;</span><span>${escapeHtml(s2.note)}</span></div>
 `;
 
-document.querySelector('.price').textContent = `฿${estimatedFare.toLocaleString('th-TH')}`;
-document.getElementById('distanceValue').textContent = distanceKm !== null ? `${distanceKm.toFixed(1)} กม.` : '-';
-document.getElementById('etaValue').textContent = etaMinutes !== null ? `${etaMinutes} นาที` : '5-7 นาที';
+document.querySelector('.price').textContent = `${estimatedFare.toLocaleString('th-TH')} ${TH.baht}`;
+document.getElementById('distanceValue').textContent = distanceKm !== null ? `${distanceKm.toFixed(1)} ${TH.km}` : '-';
+document.getElementById('etaValue').textContent = etaMinutes !== null ? `${etaMinutes} ${TH.minute}` : `5-7 ${TH.minute}`;
 
 function confirmRide(){
   const rideDraft = {
@@ -135,7 +145,7 @@ function confirmRide(){
   };
 
   localStorage.setItem('ride_last_submission', JSON.stringify(rideDraft));
-  alert('เรียกรถสำเร็จ! คนขับกำลังมุ่งหน้าไปหาคุณ');
+  alert(TH.success);
   localStorage.removeItem('ride_step1');
   localStorage.removeItem('ride_step2');
   window.location.href = 'index.html';
