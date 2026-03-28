@@ -20,6 +20,7 @@
 *{box-sizing:border-box}
 html,body{height:100%}
 body{margin:0;font-family:'Kanit',sans-serif;background:radial-gradient(circle at top,#e8f8f0 0%,#f7fbf9 40%,#f2f6f5 100%);color:var(--ink)}
+body.map-open{overflow:hidden}
 .app{max-width:520px;margin:0 auto;min-height:100vh;padding:0 16px 24px}
 .hero{padding:24px 8px 16px}
 .brand{display:flex;align-items:center;gap:10px;margin-bottom:10px}
@@ -34,30 +35,40 @@ body{margin:0;font-family:'Kanit',sans-serif;background:radial-gradient(circle a
 .input{display:block;width:100%;padding:14px 16px;border-radius:14px;border:1px solid var(--line);font-family:'Kanit',sans-serif;font-size:16px;line-height:1.4;background:#fff;min-height:52px}
 .input[readonly]{cursor:pointer}
 .btn-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px}
-.secondary.inline{width:auto;padding:10px 14px;font-size:14px}
 .chips{display:flex;gap:10px;margin-top:6px}
 .chip{flex:1;padding:12px;border-radius:14px;border:1px solid var(--line);background:#fff;cursor:pointer;text-align:center;font-weight:600;font-family:'Kanit',sans-serif}
 .chip.active{border-color:var(--brand);background:#ecfdf3;color:#065f46;box-shadow:0 8px 18px rgba(24,160,94,.2)}
 .primary{width:100%;padding:14px 16px;border:0;border-radius:16px;background:linear-gradient(135deg,var(--brand-dark),var(--brand));color:#fff;font-size:16px;font-weight:600;cursor:pointer;box-shadow:0 12px 24px rgba(24,160,94,.35);font-family:'Kanit',sans-serif}
 .secondary{width:100%;padding:12px 16px;border:1px solid var(--line);border-radius:16px;background:#fff;color:var(--ink);font-size:15px;font-weight:500;cursor:pointer;font-family:'Kanit',sans-serif}
+.secondary.inline{width:auto;padding:10px 14px;font-size:14px}
 .helper{font-size:12px;color:var(--muted);margin-top:6px}
 .summary-row{display:flex;justify-content:space-between;align-items:flex-start;margin-top:8px;gap:14px;font-size:14px}
 .summary-row span:last-child{text-align:right;word-break:break-word;max-width:60%}
-.map{width:100%;height:280px;border-radius:16px;overflow:hidden;margin-top:10px;background:#e5e7eb;border:2px solid transparent}
-.map.fullscreen{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);width:min(calc(100vw - 24px),640px);height:min(72dvh,520px);margin:0;border-radius:24px;z-index:999;box-shadow:0 24px 60px rgba(15,23,42,.35);border:0}
+.floater{display:flex;justify-content:space-between;align-items:center;margin-top:14px;padding:12px 14px;border-radius:14px;border:1px dashed #d1fae5;background:#f0fdf4;color:#065f46;font-size:13px;gap:14px}
+.map-preview{width:100%;height:220px;border-radius:16px;overflow:hidden;margin-top:10px;background:#e5e7eb;border:2px solid transparent}
+.map-preview.active-pickup{border-color:#0b6c3c}
+.map-preview.active-dropoff{border-color:#1aa7a1}
 .map-backdrop{position:fixed;inset:0;background:rgba(0,0,0,.55);opacity:0;pointer-events:none;z-index:998;transition:opacity .2s ease}
 .map-backdrop.show{opacity:1;pointer-events:auto}
-.map-toolbar{position:fixed;top:calc(50% - min(36dvh,260px) + 14px);left:50%;transform:translateX(-50%);width:min(calc(100vw - 48px),592px);z-index:1000;display:none;gap:8px}
+.map-modal{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);width:min(calc(100vw - 24px),640px);display:none;z-index:999}
+.map-modal.show{display:block}
+.map-modal-card{position:relative;background:#fff;border-radius:24px;box-shadow:0 24px 60px rgba(15,23,42,.35);padding:12px}
+.map-live{height:min(72dvh,520px);border-radius:18px;overflow:hidden;background:#e5e7eb}
+.map-toolbar{position:absolute;top:24px;left:24px;right:24px;display:none;gap:8px;z-index:1000}
 .map-toolbar.show{display:flex}
-.map-toolbar input{flex:1;border-radius:12px;border:1px solid #d1d5db;padding:12px;font-family:'Kanit',sans-serif}
-.map-hint{position:fixed;top:calc(50% + min(36dvh,260px) - 78px);left:50%;transform:translateX(-50%);width:min(calc(100vw - 48px),592px);z-index:1000;display:none}
+.map-toolbar input{flex:1;margin:0;background:#fff;border-radius:12px;border:1px solid #d1d5db;padding:12px;font-family:'Kanit',sans-serif}
+.map-hint{position:absolute;left:24px;right:24px;bottom:24px;display:none;z-index:1000}
 .map-hint.show{display:block}
-.map-hint .primary{width:100%;box-shadow:none}
-.map.active-pickup{border-color:#0b6c3c}
-.map.active-dropoff{border-color:#1aa7a1}
-body.map-open{overflow:hidden}
-.floater{display:flex;justify-content:space-between;align-items:center;margin-top:14px;padding:12px 14px;border-radius:14px;border:1px dashed #d1fae5;background:#f0fdf4;color:#065f46;font-size:13px;gap:14px}
-@media (max-width:600px){.map{height:340px}.secondary.inline{width:100%}.map.fullscreen{width:calc(100vw - 18px);height:min(68dvh,440px);border-radius:20px}.map-toolbar{top:calc(50% - min(34dvh,220px) + 12px);width:calc(100vw - 36px)}.map-hint{top:calc(50% + min(34dvh,220px) - 74px);width:calc(100vw - 36px)}}
+.map-hint .primary{width:100%;box-shadow:0 14px 30px rgba(24,160,94,.28)}
+@media (max-width:600px){
+  .map-preview{height:240px}
+  .secondary.inline{width:100%}
+  .map-modal{width:calc(100vw - 18px)}
+  .map-modal-card{border-radius:20px;padding:10px}
+  .map-live{height:min(68dvh,440px);border-radius:16px}
+  .map-toolbar{top:18px;left:18px;right:18px}
+  .map-hint{left:18px;right:18px;bottom:18px}
+}
 </style>
 </head>
 <body>
@@ -101,8 +112,8 @@ body.map-open{overflow:hidden}
 
     <section class="card">
       <div class="label">&#x0E41;&#x0E1C;&#x0E19;&#x0E17;&#x0E35;&#x0E48;</div>
-      <div class="summary-row"><span>&#x0E2A;&#x0E16;&#x0E32;&#x0E19;&#x0E30;&#x0E01;&#x0E32;&#x0E23;&#x0E40;&#x0E25;&#x0E37;&#x0E2D;&#x0E01;</span><span id="activeHint">&#x0E41;&#x0E15;&#x0E30;&#x0E1B;&#x0E38;&#x0E48;&#x0E21;&#x0E08;&#x0E38;&#x0E14;&#x0E23;&#x0E31;&#x0E1A;&#x0E2B;&#x0E23;&#x0E37;&#x0E2D;&#x0E1B;&#x0E25;&#x0E32;&#x0E22;&#x0E17;&#x0E32;&#x0E07;&#x0E01;&#x0E48;&#x0E2D;&#x0E19;</span></div>
-      <div class="map" id="map"></div>
+      <div class="summary-row"><span>&#x0E2A;&#x0E16;&#x0E32;&#x0E19;&#x0E30;&#x0E01;&#x0E32;&#x0E23;&#x0E40;&#x0E25;&#x0E37;&#x0E2D;&#x0E01;</span><span id="activeHint">&#x0E41;&#x0E15;&#x0E30;&#x0E0A;&#x0E48;&#x0E2D;&#x0E07;&#x0E17;&#x0E35;&#x0E48;&#x0E2D;&#x0E22;&#x0E39;&#x0E48;&#x0E40;&#x0E1E;&#x0E37;&#x0E48;&#x0E2D;&#x0E40;&#x0E25;&#x0E37;&#x0E2D;&#x0E01;&#x0E08;&#x0E38;&#x0E14;</span></div>
+      <div id="mapPreview" class="map-preview"></div>
       <div class="floater">
         <span id="etaText">ETA -</span>
         <span id="distanceText">&#x0E23;&#x0E30;&#x0E22;&#x0E30;&#x0E17;&#x0E32;&#x0E07; -</span>
@@ -116,21 +127,26 @@ body.map-open{overflow:hidden}
   </div>
 
   <div id="mapBackdrop" class="map-backdrop"></div>
-  <div id="mapToolbar" class="map-toolbar">
-    <input id="mapSearch" placeholder="&#x0E04;&#x0E49;&#x0E19;&#x0E2B;&#x0E32;&#x0E2A;&#x0E16;&#x0E32;&#x0E19;&#x0E17;&#x0E35;&#x0E48;&#x0E2B;&#x0E23;&#x0E37;&#x0E2D;&#x0E17;&#x0E35;&#x0E48;&#x0E2D;&#x0E22;&#x0E39;&#x0E48;">
-    <button id="closeMap" class="secondary" type="button">&#x0E1B;&#x0E34;&#x0E14;</button>
-  </div>
-  <div id="mapHint" class="map-hint">
-    <button id="confirmPoint" class="primary" type="button">&#x0E22;&#x0E37;&#x0E19;&#x0E22;&#x0E31;&#x0E19;&#x0E08;&#x0E38;&#x0E14;&#x0E19;&#x0E35;&#x0E49;</button>
+  <div id="mapModal" class="map-modal">
+    <div class="map-modal-card">
+      <div id="mapToolbar" class="map-toolbar">
+        <input id="mapSearch" placeholder="&#x0E04;&#x0E49;&#x0E19;&#x0E2B;&#x0E32;&#x0E2A;&#x0E16;&#x0E32;&#x0E19;&#x0E17;&#x0E35;&#x0E48;&#x0E2B;&#x0E23;&#x0E37;&#x0E2D;&#x0E17;&#x0E35;&#x0E48;&#x0E2D;&#x0E22;&#x0E39;&#x0E48;">
+        <button id="closeMap" class="secondary inline" type="button">&#x0E1B;&#x0E34;&#x0E14;</button>
+      </div>
+      <div id="map" class="map-live"></div>
+      <div id="mapHint" class="map-hint">
+        <button id="confirmPoint" class="primary" type="button">&#x0E22;&#x0E37;&#x0E19;&#x0E22;&#x0E31;&#x0E19;&#x0E08;&#x0E38;&#x0E14;&#x0E19;&#x0E35;&#x0E49;</button>
+      </div>
+    </div>
   </div>
 
 <script>
 const TH = {
   defaultPlace: '\u0E2B\u0E2D\u0E19\u0E32\u0E2C\u0E34\u0E01\u0E32\u0E40\u0E17\u0E28\u0E1A\u0E32\u0E25\u0E40\u0E21\u0E37\u0E2D\u0E07\u0E40\u0E1A\u0E15\u0E07',
   pickupPrompt: '\u0E01\u0E33\u0E25\u0E31\u0E07\u0E40\u0E25\u0E37\u0E2D\u0E01\u0E08\u0E38\u0E14\u0E23\u0E31\u0E1A\u0E1C\u0E39\u0E49\u0E42\u0E14\u0E22\u0E2A\u0E32\u0E23',
-  dropoffPrompt: '\u0E01\u0E33\u0E25\u0E31\u0E07\u0E40\u0E25\u0E37\u0E2D\u0E01\u0E1B\u0E25\u0E32\u0E22\u0E17\u0E32\u0E07',
+  dropoffPrompt: '\u0E01\u0E33\u0E25\u0E31\u0E07\u0E40\u0E25\u0E37\u0E2D\u0E01\u0E08\u0E38\u0E14\u0E2A\u0E48\u0E07',
   confirmPickup: '\u0E22\u0E37\u0E19\u0E22\u0E31\u0E19\u0E08\u0E38\u0E14\u0E23\u0E31\u0E1A\u0E1C\u0E39\u0E49\u0E42\u0E14\u0E22\u0E2A\u0E32\u0E23',
-  confirmDropoff: '\u0E22\u0E37\u0E19\u0E22\u0E31\u0E19\u0E1B\u0E25\u0E32\u0E22\u0E17\u0E32\u0E07',
+  confirmDropoff: '\u0E22\u0E37\u0E19\u0E22\u0E31\u0E19\u0E08\u0E38\u0E14\u0E2A\u0E48\u0E07',
   statusReady: '\u0E1E\u0E23\u0E49\u0E2D\u0E21\u0E44\u0E1B\u0E15\u0E48\u0E2D',
   statusEstimating: '\u0E01\u0E33\u0E25\u0E31\u0E07\u0E04\u0E33\u0E19\u0E27\u0E13\u0E23\u0E30\u0E22\u0E30\u0E17\u0E32\u0E07\u0E41\u0E25\u0E30\u0E23\u0E32\u0E04\u0E32',
   notFound: '\u0E44\u0E21\u0E48\u0E1E\u0E1A\u0E17\u0E35\u0E48\u0E2D\u0E22\u0E39\u0E48',
@@ -140,7 +156,8 @@ const TH = {
   km: '\u0E01\u0E21.',
   baht: '\u0E1A\u0E32\u0E17',
   motorcycle: '\u0E21\u0E2D\u0E40\u0E15\u0E2D\u0E23\u0E4C\u0E44\u0E0B\u0E04\u0E4C',
-  car: '\u0E23\u0E16\u0E22\u0E19\u0E15\u0E4C'
+  car: '\u0E23\u0E16\u0E22\u0E19\u0E15\u0E4C',
+  currentLocationFailed: '\u0E44\u0E21\u0E48\u0E2A\u0E32\u0E21\u0E32\u0E23\u0E16\u0E14\u0E36\u0E07\u0E15\u0E33\u0E41\u0E2B\u0E19\u0E48\u0E07\u0E1B\u0E31\u0E08\u0E08\u0E38\u0E1A\u0E31\u0E19\u0E44\u0E14\u0E49'
 };
 
 const pickupSearchField = document.getElementById('pickupSearchField');
@@ -149,9 +166,10 @@ const pickupCurrentBtn = document.getElementById('pickupCurrentBtn');
 const pickupText = document.getElementById('pickupText');
 const dropoffText = document.getElementById('dropoffText');
 const nextBtn = document.getElementById('nextBtn');
-const mapEl = document.getElementById('map');
+const mapPreview = document.getElementById('mapPreview');
 const activeHint = document.getElementById('activeHint');
 const mapBackdrop = document.getElementById('mapBackdrop');
+const mapModal = document.getElementById('mapModal');
 const mapToolbar = document.getElementById('mapToolbar');
 const mapSearch = document.getElementById('mapSearch');
 const closeMapBtn = document.getElementById('closeMap');
@@ -162,9 +180,12 @@ const distanceText = document.getElementById('distanceText');
 const fareText = document.getElementById('fareText');
 
 let map;
+let previewMap;
 let geocoder;
 let pickupMarker;
 let dropoffMarker;
+let previewPickupMarker;
+let previewDropoffMarker;
 let directionsService;
 let directionsRenderer;
 let activeField = 'pickup';
@@ -177,10 +198,7 @@ const VEHICLE_PRICING = {
   [TH.car]: { base: 60, perKm: 12 }
 };
 
-function toRadians(value){
-  return value * Math.PI / 180;
-}
-
+function toRadians(value){ return value * Math.PI / 180; }
 function getStraightDistanceKm(origin, destination){
   const lat1 = typeof origin.lat === 'function' ? origin.lat() : origin.lat;
   const lng1 = typeof origin.lng === 'function' ? origin.lng() : origin.lng;
@@ -189,56 +207,33 @@ function getStraightDistanceKm(origin, destination){
   const earthRadiusKm = 6371;
   const dLat = toRadians(lat2 - lat1);
   const dLng = toRadians(lng2 - lng1);
-  const a =
-    Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-    Math.cos(toRadians(lat1)) * Math.cos(toRadians(lat2)) *
-    Math.sin(dLng / 2) * Math.sin(dLng / 2);
+  const a = Math.sin(dLat / 2) * Math.sin(dLat / 2) + Math.cos(toRadians(lat1)) * Math.cos(toRadians(lat2)) * Math.sin(dLng / 2) * Math.sin(dLng / 2);
   const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
   return earthRadiusKm * c;
 }
-
 function getAddressComponent(components, type){
   const match = (components || []).find((component) => component.types && component.types.includes(type));
   return match ? match.long_name : '';
 }
-
-function joinAddressParts(parts){
-  return parts.filter(Boolean).join(' ').replace(/\s+/g, ' ').trim();
-}
-
+function joinAddressParts(parts){ return parts.filter(Boolean).join(' ').replace(/\s+/g, ' ').trim(); }
 function buildDisplayAddress(result){
   const components = result && result.address_components ? result.address_components : [];
   const streetNumber = getAddressComponent(components, 'street_number');
   const route = getAddressComponent(components, 'route');
-  const sublocality =
-    getAddressComponent(components, 'sublocality_level_1') ||
-    getAddressComponent(components, 'sublocality') ||
-    getAddressComponent(components, 'neighborhood');
-  const locality =
-    getAddressComponent(components, 'locality') ||
-    getAddressComponent(components, 'postal_town');
-  const district =
-    getAddressComponent(components, 'administrative_area_level_2') ||
-    getAddressComponent(components, 'administrative_area_level_3');
+  const sublocality = getAddressComponent(components, 'sublocality_level_1') || getAddressComponent(components, 'sublocality') || getAddressComponent(components, 'neighborhood');
+  const locality = getAddressComponent(components, 'locality') || getAddressComponent(components, 'postal_town');
+  const district = getAddressComponent(components, 'administrative_area_level_2') || getAddressComponent(components, 'administrative_area_level_3');
   const province = getAddressComponent(components, 'administrative_area_level_1');
   const postalCode = getAddressComponent(components, 'postal_code');
-
   const line1 = joinAddressParts([streetNumber, route]);
   const line2 = sublocality ? '\u0E15.' + sublocality : '';
   const line3 = locality ? '\u0E2D.' + locality : '';
   const line4 = province || district || '';
   const line5 = postalCode || '';
   const address = joinAddressParts([line1, line2, line3, line4, line5]);
-
-  if(address){
-    return address;
-  }
-
-  return result && result.formatted_address
-    ? result.formatted_address.replace(/^[A-Z0-9+]{4,}\s*/i, '').replace(/\s*\u0E1B\u0E23\u0E30\u0E40\u0E17\u0E28\u0E44\u0E17\u0E22$/, '').trim()
-    : TH.notFound;
+  if(address){ return address; }
+  return result && result.formatted_address ? result.formatted_address.replace(/^[A-Z0-9+]{4,}\s*/i, '').replace(/\s*\u0E1B\u0E23\u0E30\u0E40\u0E17\u0E28\u0E44\u0E17\u0E22$/, '').trim() : TH.notFound;
 }
-
 function getDisplayAddress(results){
   const preferred = (results || []).find((result) => {
     const formatted = result && result.formatted_address ? result.formatted_address : '';
@@ -246,19 +241,12 @@ function getDisplayAddress(results){
   }) || results[0];
   return buildDisplayAddress(preferred);
 }
-
-function getSelectedVehicle(){
-  return document.querySelector('#vehicleChips .chip.active')?.dataset.vehicle || TH.motorcycle;
-}
-
+function getSelectedVehicle(){ return document.querySelector('#vehicleChips .chip.active')?.dataset.vehicle || TH.motorcycle; }
 function getEstimatedFare(){
-  if(distanceKm === null){
-    return null;
-  }
+  if(distanceKm === null) return null;
   const pricing = VEHICLE_PRICING[getSelectedVehicle()] || VEHICLE_PRICING[TH.motorcycle];
   return Math.round(pricing.base + (distanceKm * pricing.perKm));
 }
-
 function updateEstimate(){
   if(distanceKm === null){
     etaText.textContent = `${TH.etaPrefix} -`;
@@ -271,7 +259,6 @@ function updateEstimate(){
   distanceText.textContent = `${TH.distance} ${distanceKm.toFixed(1)} ${TH.km}`;
   fareText.textContent = estimatedFare !== null ? `${estimatedFare.toLocaleString('th-TH')} ${TH.baht}` : '-';
 }
-
 function updateStorage(){
   const payload = {
     pickupAddress: pickupText.textContent === '-' ? '' : pickupText.textContent,
@@ -287,7 +274,44 @@ function updateStorage(){
   };
   localStorage.setItem('ride_step1', JSON.stringify(payload));
 }
-
+function syncPreviewMap(){
+  if(!previewMap) return;
+  if(pickupMarker){
+    const pos = pickupMarker.getPosition();
+    if(!previewPickupMarker){
+      previewPickupMarker = new google.maps.Marker({ map: previewMap, position: pos, label: 'A' });
+    } else {
+      previewPickupMarker.setPosition(pos);
+      previewPickupMarker.setMap(previewMap);
+    }
+  }
+  if(dropoffMarker){
+    const pos = dropoffMarker.getPosition();
+    if(!previewDropoffMarker){
+      previewDropoffMarker = new google.maps.Marker({ map: previewMap, position: pos, label: 'B' });
+    } else {
+      previewDropoffMarker.setPosition(pos);
+      previewDropoffMarker.setMap(previewMap);
+    }
+  }
+  if(!pickupMarker && previewPickupMarker){ previewPickupMarker.setMap(null); }
+  if(!dropoffMarker && previewDropoffMarker){ previewDropoffMarker.setMap(null); }
+  if(pickupMarker && dropoffMarker){
+    const bounds = new google.maps.LatLngBounds();
+    bounds.extend(pickupMarker.getPosition());
+    bounds.extend(dropoffMarker.getPosition());
+    previewMap.fitBounds(bounds, 48);
+  } else if(pickupMarker){
+    previewMap.setCenter(pickupMarker.getPosition());
+    previewMap.setZoom(15);
+  } else if(dropoffMarker){
+    previewMap.setCenter(dropoffMarker.getPosition());
+    previewMap.setZoom(15);
+  } else {
+    previewMap.setCenter(DEFAULT_CENTER);
+    previewMap.setZoom(13);
+  }
+}
 function calcRoute(){
   if(!pickupMarker || !dropoffMarker){
     distanceKm = null;
@@ -296,17 +320,17 @@ function calcRoute(){
     activeHint.textContent = activeField === 'pickup' ? TH.pickupPrompt : TH.dropoffPrompt;
     updateEstimate();
     updateStorage();
+    syncPreviewMap();
     syncButton();
     return;
   }
-
   activeHint.textContent = TH.statusEstimating;
   distanceKm = getStraightDistanceKm(pickupMarker.getPosition(), dropoffMarker.getPosition());
   etaMinutes = Math.max(1, Math.round((distanceKm / 28) * 60));
   updateEstimate();
   updateStorage();
+  syncPreviewMap();
   syncButton();
-
   directionsService.route({
     origin: pickupMarker.getPosition(),
     destination: dropoffMarker.getPosition(),
@@ -315,10 +339,10 @@ function calcRoute(){
     if(status !== 'OK' || !result.routes || !result.routes[0]){
       activeHint.textContent = TH.statusReady;
       updateStorage();
+      syncPreviewMap();
       syncButton();
       return;
     }
-
     directionsRenderer.setDirections(result);
     const leg = result.routes[0].legs[0];
     distanceKm = leg.distance.value / 1000;
@@ -326,10 +350,10 @@ function calcRoute(){
     activeHint.textContent = TH.statusReady;
     updateEstimate();
     updateStorage();
+    syncPreviewMap();
     syncButton();
   });
 }
-
 function setMarker(position, type){
   if(type === 'pickup'){
     if(!pickupMarker){
@@ -349,46 +373,36 @@ function setMarker(position, type){
   map.panTo(position);
   calcRoute();
 }
-
 function handleDraggedMarker(type){
   const marker = type === 'pickup' ? pickupMarker : dropoffMarker;
   if(!marker) return;
   reverseGeocode(marker.getPosition(), (address) => {
     if(type === 'pickup'){
       pickupText.textContent = address;
+      pickupSearchField.value = address;
     } else {
       dropoffText.textContent = address;
+      dropoffSearchField.value = address;
     }
     updateStorage();
-    fitBoundsIfReady();
+    syncPreviewMap();
     syncButton();
   });
 }
-
 function setActiveField(type){
   activeField = type;
   if(type === 'pickup'){
-    mapEl.classList.add('active-pickup');
-    mapEl.classList.remove('active-dropoff');
+    mapPreview.classList.add('active-pickup');
+    mapPreview.classList.remove('active-dropoff');
     activeHint.textContent = TH.pickupPrompt;
     confirmPoint.textContent = TH.confirmPickup;
   } else {
-    mapEl.classList.add('active-dropoff');
-    mapEl.classList.remove('active-pickup');
+    mapPreview.classList.add('active-dropoff');
+    mapPreview.classList.remove('active-pickup');
     activeHint.textContent = TH.dropoffPrompt;
     confirmPoint.textContent = TH.confirmDropoff;
   }
 }
-
-function fitBoundsIfReady(){
-  if(pickupMarker && dropoffMarker){
-    const bounds = new google.maps.LatLngBounds();
-    bounds.extend(pickupMarker.getPosition());
-    bounds.extend(dropoffMarker.getPosition());
-    map.fitBounds(bounds, 40);
-  }
-}
-
 function reverseGeocode(latLng, cb){
   geocoder.geocode({ location: latLng }, (results, status) => {
     if(status === 'OK' && results && results[0]){
@@ -398,127 +412,43 @@ function reverseGeocode(latLng, cb){
     cb(TH.notFound);
   });
 }
-
-function syncVehicle(){
-  const savedVehicle = getSelectedVehicle();
-  document.querySelectorAll('#vehicleChips .chip').forEach((chip) => {
-    chip.classList.toggle('active', chip.dataset.vehicle === savedVehicle);
-  });
-  updateEstimate();
-  updateStorage();
-}
-
+function syncVehicle(){ updateEstimate(); updateStorage(); syncButton(); }
 function syncButton(){
   const ok = pickupText.textContent.trim() !== '-' && dropoffText.textContent.trim() !== '-' && distanceKm !== null;
   nextBtn.disabled = !ok;
 }
-
-window.initMap = function initMap(){
-  map = new google.maps.Map(mapEl, {
-    center: DEFAULT_CENTER,
-    zoom: 13,
-    disableDefaultUI: true,
-    zoomControl: true
-  });
-
-  geocoder = new google.maps.Geocoder();
-  directionsService = new google.maps.DirectionsService();
-  directionsRenderer = new google.maps.DirectionsRenderer({ map, suppressMarkers: true, preserveViewport: true });
-
-  const searchAuto = new google.maps.places.Autocomplete(mapSearch);
-  searchAuto.bindTo('bounds', map);
-  searchAuto.addListener('place_changed', () => {
-    const place = searchAuto.getPlace();
-    if(!place.geometry){
-      return;
+function openMap(type){
+  setActiveField(type);
+  document.body.classList.add('map-open');
+  mapBackdrop.classList.add('show');
+  mapModal.classList.add('show');
+  mapToolbar.classList.add('show');
+  mapHint.classList.add('show');
+  mapSearch.value = type === 'pickup' ? pickupSearchField.value : dropoffSearchField.value;
+  setTimeout(() => {
+    google.maps.event.trigger(map, 'resize');
+    if(type === 'pickup' && pickupMarker){
+      map.setZoom(16);
+      map.panTo(pickupMarker.getPosition());
+    } else if(type === 'dropoff' && dropoffMarker){
+      map.setZoom(16);
+      map.panTo(dropoffMarker.getPosition());
+    } else {
+      map.setCenter(DEFAULT_CENTER);
+      map.setZoom(13);
     }
-    const target = activeField || 'pickup';
-    setMarker(place.geometry.location, target);
-    const address = buildDisplayAddress(place) || mapSearch.value.trim();
-    if(target === 'pickup') pickupText.textContent = address;
-    if(target === 'dropoff') dropoffText.textContent = address;
-    updateStorage();
-    fitBoundsIfReady();
-    syncButton();
-  });
-
-  map.addListener('click', (e) => {
-    const target = activeField || (!pickupMarker ? 'pickup' : 'dropoff');
-    setMarker(e.latLng, target);
-    reverseGeocode(e.latLng, (address) => {
-      if(target === 'pickup') pickupText.textContent = address;
-      if(target === 'dropoff') dropoffText.textContent = address;
-      updateStorage();
-      fitBoundsIfReady();
-      syncButton();
-    });
-  });
-
-  try{
-    const saved = JSON.parse(localStorage.getItem('ride_step1') || '{}');
-    if(saved.pickupAddress) pickupText.textContent = saved.pickupAddress;
-    if(saved.dropoffAddress) dropoffText.textContent = saved.dropoffAddress;
-    if(saved.vehicle){
-      document.querySelectorAll('#vehicleChips .chip').forEach((chip) => {
-        chip.classList.toggle('active', chip.dataset.vehicle === saved.vehicle);
-      });
-    }
-    if(saved.pickupLat && saved.pickupLng){
-      setMarker(new google.maps.LatLng(saved.pickupLat, saved.pickupLng), 'pickup');
-    }
-    if(saved.dropoffLat && saved.dropoffLng){
-      setMarker(new google.maps.LatLng(saved.dropoffLat, saved.dropoffLng), 'dropoff');
-    }
-    if(saved.distanceKm !== null && saved.distanceKm !== undefined){
-      distanceKm = Number(saved.distanceKm);
-    }
-    if(saved.etaMinutes !== null && saved.etaMinutes !== undefined){
-      etaMinutes = Number(saved.etaMinutes);
-    }
-    updateEstimate();
-    if(saved.pickupLat && saved.pickupLng && saved.dropoffLat && saved.dropoffLng){
-      fitBoundsIfReady();
-      activeHint.textContent = TH.statusReady;
-    }
-  } catch(e) {}
-
-  if((pickupText.textContent === '-' || !pickupText.textContent.trim()) && !pickupMarker){
-    if(navigator.geolocation){
-      navigator.geolocation.getCurrentPosition(
-        (pos) => {
-          const loc = new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude);
-          map.setCenter(loc);
-          setActiveField('pickup');
-          setMarker(loc, 'pickup');
-          reverseGeocode(loc, (address) => {
-            pickupText.textContent = address;
-            updateStorage();
-            syncButton();
-          });
-        },
-        () => {
-          geocoder.geocode({ address: TH.defaultPlace }, (results, status) => {
-            if(status === 'OK' && results && results[0]){
-              const loc = results[0].geometry.location;
-              map.setCenter(loc);
-              setActiveField('pickup');
-              setMarker(loc, 'pickup');
-              pickupText.textContent = buildDisplayAddress(results[0]) || pickupText.textContent;
-              updateStorage();
-              syncButton();
-            }
-          });
-        },
-        { enableHighAccuracy:true, timeout:8000, maximumAge:60000 }
-      );
-    }
-  }
-
-  syncButton();
-};
-
+  }, 80);
+}
+function closeMap(){
+  document.body.classList.remove('map-open');
+  mapBackdrop.classList.remove('show');
+  mapModal.classList.remove('show');
+  mapToolbar.classList.remove('show');
+  mapHint.classList.remove('show');
+}
 function useCurrentLocation(){
   if(!navigator.geolocation){
+    alert(TH.currentLocationFailed);
     return;
   }
   navigator.geolocation.getCurrentPosition(
@@ -530,36 +460,116 @@ function useCurrentLocation(){
         pickupText.textContent = address;
         pickupSearchField.value = address;
         updateStorage();
+        syncPreviewMap();
         syncButton();
       });
     },
-    () => {},
+    () => alert(TH.currentLocationFailed),
     { enableHighAccuracy:true, timeout:8000, maximumAge:60000 }
   );
 }
-function openMap(type){
-  setActiveField(type);
-  document.body.classList.add('map-open');
-  mapBackdrop.classList.add('show');
-  mapEl.classList.add('fullscreen');
-  mapToolbar.classList.add('show');
-  mapHint.classList.add('show');
-  mapSearch.value = '';
-  setTimeout(() => {
-    google.maps.event.trigger(map, 'resize');
-    if(type === 'pickup' && pickupMarker) map.panTo(pickupMarker.getPosition());
-    if(type === 'dropoff' && dropoffMarker) map.panTo(dropoffMarker.getPosition());
-  }, 50);
-}
-
-function closeMap(){
-  document.body.classList.remove('map-open');
-  mapBackdrop.classList.remove('show');
-  mapEl.classList.remove('fullscreen');
-  mapToolbar.classList.remove('show');
-  mapHint.classList.remove('show');
-}
-
+window.initMap = function initMap(){
+  previewMap = new google.maps.Map(mapPreview, {
+    center: DEFAULT_CENTER,
+    zoom: 13,
+    disableDefaultUI: true,
+    gestureHandling: 'none',
+    clickableIcons: false
+  });
+  map = new google.maps.Map(document.getElementById('map'), {
+    center: DEFAULT_CENTER,
+    zoom: 13,
+    disableDefaultUI: true,
+    zoomControl: true
+  });
+  geocoder = new google.maps.Geocoder();
+  directionsService = new google.maps.DirectionsService();
+  directionsRenderer = new google.maps.DirectionsRenderer({ map, suppressMarkers: true, preserveViewport: true });
+  const searchAuto = new google.maps.places.Autocomplete(mapSearch);
+  searchAuto.bindTo('bounds', map);
+  searchAuto.addListener('place_changed', () => {
+    const place = searchAuto.getPlace();
+    if(!place.geometry) return;
+    const target = activeField || 'pickup';
+    setMarker(place.geometry.location, target);
+    const address = buildDisplayAddress(place) || mapSearch.value.trim();
+    if(target === 'pickup'){
+      pickupText.textContent = address;
+      pickupSearchField.value = address;
+    } else {
+      dropoffText.textContent = address;
+      dropoffSearchField.value = address;
+    }
+    updateStorage();
+    syncPreviewMap();
+    syncButton();
+  });
+  map.addListener('click', (e) => {
+    const target = activeField || (!pickupMarker ? 'pickup' : 'dropoff');
+    setMarker(e.latLng, target);
+    reverseGeocode(e.latLng, (address) => {
+      if(target === 'pickup'){
+        pickupText.textContent = address;
+        pickupSearchField.value = address;
+      } else {
+        dropoffText.textContent = address;
+        dropoffSearchField.value = address;
+      }
+      updateStorage();
+      syncPreviewMap();
+      syncButton();
+    });
+  });
+  try{
+    const saved = JSON.parse(localStorage.getItem('ride_step1') || '{}');
+    if(saved.pickupAddress){ pickupText.textContent = saved.pickupAddress; pickupSearchField.value = saved.pickupAddress; }
+    if(saved.dropoffAddress){ dropoffText.textContent = saved.dropoffAddress; dropoffSearchField.value = saved.dropoffAddress; }
+    if(saved.vehicle){
+      document.querySelectorAll('#vehicleChips .chip').forEach((chip) => chip.classList.toggle('active', chip.dataset.vehicle === saved.vehicle));
+    }
+    if(saved.pickupLat && saved.pickupLng){ setMarker(new google.maps.LatLng(saved.pickupLat, saved.pickupLng), 'pickup'); }
+    if(saved.dropoffLat && saved.dropoffLng){ setMarker(new google.maps.LatLng(saved.dropoffLat, saved.dropoffLng), 'dropoff'); }
+    if(saved.distanceKm !== null && saved.distanceKm !== undefined){ distanceKm = Number(saved.distanceKm); }
+    if(saved.etaMinutes !== null && saved.etaMinutes !== undefined){ etaMinutes = Number(saved.etaMinutes); }
+    updateEstimate();
+    syncPreviewMap();
+    if(saved.pickupLat && saved.pickupLng && saved.dropoffLat && saved.dropoffLng){ activeHint.textContent = TH.statusReady; }
+  } catch(e) {}
+  if((pickupText.textContent === '-' || !pickupText.textContent.trim()) && !pickupMarker){
+    if(navigator.geolocation){
+      navigator.geolocation.getCurrentPosition(
+        (pos) => {
+          const loc = new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude);
+          setActiveField('pickup');
+          setMarker(loc, 'pickup');
+          reverseGeocode(loc, (address) => {
+            pickupText.textContent = address;
+            pickupSearchField.value = address;
+            updateStorage();
+            syncPreviewMap();
+            syncButton();
+          });
+        },
+        () => {
+          geocoder.geocode({ address: TH.defaultPlace }, (results, status) => {
+            if(status === 'OK' && results && results[0]){
+              const loc = results[0].geometry.location;
+              setActiveField('pickup');
+              setMarker(loc, 'pickup');
+              pickupText.textContent = buildDisplayAddress(results[0]) || pickupText.textContent;
+              pickupSearchField.value = pickupText.textContent;
+              updateStorage();
+              syncPreviewMap();
+              syncButton();
+            }
+          });
+        },
+        { enableHighAccuracy:true, timeout:8000, maximumAge:60000 }
+      );
+    }
+  }
+  syncButton();
+};
 pickupSearchField.addEventListener('click', () => openMap('pickup'));
 dropoffSearchField.addEventListener('click', () => openMap('dropoff'));
 pickupSearchField.addEventListener('focus', () => openMap('pickup'));
@@ -578,7 +588,6 @@ nextBtn.addEventListener('click', () => {
   updateStorage();
   window.location.href = 'ride2.html';
 });
-
 document.querySelectorAll('#vehicleChips .chip').forEach((chip) => {
   chip.addEventListener('click', () => {
     document.querySelectorAll('#vehicleChips .chip').forEach((c) => c.classList.remove('active'));
