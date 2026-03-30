@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="th">
 <head>
 <meta charset="UTF-8">
@@ -6,16 +6,7 @@
 <title>&#x0E22;&#x0E37;&#x0E19;&#x0E22;&#x0E31;&#x0E19;&#x0E01;&#x0E32;&#x0E23;&#x0E40;&#x0E23;&#x0E35;&#x0E22;&#x0E01;&#x0E23;&#x0E16;</title>
 <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
-:root{
-  --brand:#18a05e;
-  --brand-dark:#0b6c3c;
-  --accent:#1aa7a1;
-  --ink:#0f172a;
-  --muted:#6b7280;
-  --card:#ffffff;
-  --line:#e5e7eb;
-  --shadow:0 18px 40px rgba(15,23,42,.08);
-}
+:root{--brand:#18a05e;--brand-dark:#0b6c3c;--accent:#1aa7a1;--ink:#0f172a;--muted:#6b7280;--card:#ffffff;--line:#e5e7eb;--shadow:0 18px 40px rgba(15,23,42,.08)}
 *{box-sizing:border-box}
 body{margin:0;font-family:'Kanit',sans-serif;background:radial-gradient(circle at top,#e8f8f0 0%,#f7fbf9 40%,#f2f6f5 100%);color:var(--ink)}
 .app{max-width:520px;margin:0 auto;min-height:100vh;padding:0 16px 24px}
@@ -40,36 +31,20 @@ body{margin:0;font-family:'Kanit',sans-serif;background:radial-gradient(circle a
     <header class="hero">
       <h1>&#x0E22;&#x0E37;&#x0E19;&#x0E22;&#x0E31;&#x0E19;&#x0E01;&#x0E32;&#x0E23;&#x0E40;&#x0E23;&#x0E35;&#x0E22;&#x0E01;&#x0E23;&#x0E16;</h1>
       <p>&#x0E15;&#x0E23;&#x0E27;&#x0E08;&#x0E2A;&#x0E2D;&#x0E1A;&#x0E23;&#x0E32;&#x0E22;&#x0E25;&#x0E30;&#x0E40;&#x0E2D;&#x0E35;&#x0E22;&#x0E14;&#x0E01;&#x0E48;&#x0E2D;&#x0E19;&#x0E22;&#x0E37;&#x0E19;&#x0E22;&#x0E31;&#x0E19;</p>
-      <div class="stepper">
-        <div class="step active"></div>
-        <div class="step active"></div>
-        <div class="step active"></div>
-      </div>
+      <div class="stepper"><div class="step active"></div><div class="step active"></div><div class="step active"></div></div>
     </header>
 
     <section class="card" id="summary"></section>
 
     <section class="card">
-      <div class="row">
-        <span>&#x0E04;&#x0E48;&#x0E32;&#x0E42;&#x0E14;&#x0E22;&#x0E2A;&#x0E32;&#x0E23;&#x0E1B;&#x0E23;&#x0E30;&#x0E21;&#x0E32;&#x0E13;</span>
-        <span class="price">-</span>
-      </div>
-      <div class="row">
-        <span>&#x0E23;&#x0E30;&#x0E22;&#x0E30;&#x0E17;&#x0E32;&#x0E07;</span>
-        <span id="distanceValue">-</span>
-      </div>
-      <div class="row">
-        <span>&#x0E40;&#x0E27;&#x0E25;&#x0E32;&#x0E23;&#x0E31;&#x0E1A;&#x0E42;&#x0E14;&#x0E22;&#x0E1B;&#x0E23;&#x0E30;&#x0E21;&#x0E32;&#x0E13;</span>
-        <span id="etaValue">-</span>
-      </div>
-      <div class="row">
-        <span>&#x0E2A;&#x0E16;&#x0E32;&#x0E19;&#x0E30;</span>
-        <span class="badge">&#x0E1E;&#x0E23;&#x0E49;&#x0E2D;&#x0E21;&#x0E04;&#x0E49;&#x0E19;&#x0E2B;&#x0E32;&#x0E04;&#x0E19;&#x0E02;&#x0E31;&#x0E1A;</span>
-      </div>
+      <div class="row"><span>&#x0E04;&#x0E48;&#x0E32;&#x0E42;&#x0E14;&#x0E22;&#x0E2A;&#x0E32;&#x0E23;&#x0E1B;&#x0E23;&#x0E30;&#x0E21;&#x0E32;&#x0E13;</span><span class="price" id="fareValue">-</span></div>
+      <div class="row"><span>&#x0E23;&#x0E30;&#x0E22;&#x0E30;&#x0E17;&#x0E32;&#x0E07;</span><span id="distanceValue">-</span></div>
+      <div class="row"><span>&#x0E40;&#x0E27;&#x0E25;&#x0E32;&#x0E23;&#x0E31;&#x0E1A;&#x0E42;&#x0E14;&#x0E22;&#x0E1B;&#x0E23;&#x0E30;&#x0E21;&#x0E32;&#x0E13;</span><span id="etaValue">-</span></div>
+      <div class="row"><span>&#x0E2A;&#x0E16;&#x0E32;&#x0E19;&#x0E30;</span><span class="badge" id="statusBadge">&#x0E1E;&#x0E23;&#x0E49;&#x0E2D;&#x0E21;&#x0E04;&#x0E49;&#x0E19;&#x0E2B;&#x0E32;&#x0E04;&#x0E19;&#x0E02;&#x0E31;&#x0E1A;</span></div>
     </section>
 
     <section class="card">
-      <button class="primary" onclick="confirmRide()">&#x0E22;&#x0E37;&#x0E19;&#x0E22;&#x0E31;&#x0E19;&#x0E40;&#x0E23;&#x0E35;&#x0E22;&#x0E01;&#x0E23;&#x0E16;</button>
+      <button class="primary" id="confirmBtn" onclick="confirmRide()">&#x0E22;&#x0E37;&#x0E19;&#x0E22;&#x0E31;&#x0E19;&#x0E40;&#x0E23;&#x0E35;&#x0E22;&#x0E01;&#x0E23;&#x0E16;</button>
       <div style="height:10px"></div>
       <button class="secondary" onclick="back()">&#x0E22;&#x0E49;&#x0E2D;&#x0E19;&#x0E01;&#x0E25;&#x0E31;&#x0E1A;</button>
     </section>
@@ -77,32 +52,39 @@ body{margin:0;font-family:'Kanit',sans-serif;background:radial-gradient(circle a
 
 <script>
 const TH = {
-  motorcycle: '\u0E21\u0E2D\u0E40\u0E15\u0E2D\u0E23\u0E4C\u0E44\u0E0B\u0E04\u0E4C',
   car: '\u0E23\u0E16\u0E22\u0E19\u0E15\u0E4C',
   baht: '\u0E1A\u0E32\u0E17',
   km: '\u0E01\u0E21.',
   minute: '\u0E19\u0E32\u0E17\u0E35',
-  success: '\u0E40\u0E23\u0E35\u0E22\u0E01\u0E23\u0E16\u0E2A\u0E33\u0E40\u0E23\u0E47\u0E08! \u0E04\u0E19\u0E02\u0E31\u0E1A\u0E01\u0E33\u0E25\u0E31\u0E07\u0E21\u0E38\u0E48\u0E07\u0E2B\u0E19\u0E49\u0E32\u0E44\u0E1B\u0E2B\u0E32\u0E04\u0E38\u0E13'
+  submitting: '\u0E01\u0E33\u0E25\u0E31\u0E07\u0E2A\u0E48\u0E07\u0E04\u0E33\u0E2A\u0E31\u0E48\u0E07...',
+  submitFailed: '\u0E2A\u0E48\u0E07\u0E04\u0E33\u0E2A\u0E31\u0E48\u0E07\u0E44\u0E21\u0E48\u0E2A\u0E33\u0E40\u0E23\u0E47\u0E08 \u0E01\u0E23\u0E38\u0E13\u0E32\u0E25\u0E2D\u0E07\u0E43\u0E2B\u0E21\u0E48\u0E2D\u0E35\u0E01\u0E04\u0E23\u0E31\u0E49\u0E07'
 };
 
 const s1 = JSON.parse(localStorage.getItem('ride_step1') || '{}');
 const s2 = JSON.parse(localStorage.getItem('ride_step2') || '{}');
 
-if(!s1.pickupAddress || !s1.dropoffAddress){
-  window.location.href = 'index.html';
-}
-if(!s2.name || !s2.phone){
-  window.location.href = 'ride2.html';
-}
+if(!s1.pickupAddress || !s1.dropoffAddress){ window.location.href = 'index.html'; }
+if(!s2.name || !s2.phone){ window.location.href = 'ride2.html'; }
 
 function escapeHtml(value){
   return String(value || '-')
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;')
-    .replace(/'/g, '&#39;');
+    .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+    .replace(/\"/g, '&quot;').replace(/'/g, '&#39;');
 }
+
+function normalizeBaseUrl(value){ return String(value || '').trim().replace(/\/$/, ''); }
+
+function resolveBackendUrl(){
+  const params = new URLSearchParams(window.location.search);
+  const fromQuery = normalizeBaseUrl(params.get('backend'));
+  if(fromQuery){ localStorage.setItem('bgo_backend_url', fromQuery); return fromQuery; }
+  const fromStorage = normalizeBaseUrl(localStorage.getItem('bgo_backend_url'));
+  if(fromStorage) return fromStorage;
+  const fallback = 'https://baetong-delivery-api.vercel.app';
+  return normalizeBaseUrl(fallback);
+}
+
+function mapVehicleType(vehicleText){ return vehicleText === TH.car ? 'car' : 'motorbike'; }
 
 const fallbackFare = s1.vehicle === TH.car ? 220 : 165;
 const estimatedFare = Number(s1.estimatedFare || fallbackFare);
@@ -119,40 +101,80 @@ document.getElementById('summary').innerHTML = `
   <div class="row"><span>&#x0E2B;&#x0E21;&#x0E32;&#x0E22;&#x0E40;&#x0E2B;&#x0E15;&#x0E38;</span><span>${escapeHtml(s2.note)}</span></div>
 `;
 
-document.querySelector('.price').textContent = `${estimatedFare.toLocaleString('th-TH')} ${TH.baht}`;
+document.getElementById('fareValue').textContent = `${estimatedFare.toLocaleString('th-TH')} ${TH.baht}`;
 document.getElementById('distanceValue').textContent = distanceKm !== null ? `${distanceKm.toFixed(1)} ${TH.km}` : '-';
 document.getElementById('etaValue').textContent = etaMinutes !== null ? `${etaMinutes} ${TH.minute}` : `5-7 ${TH.minute}`;
 
-function confirmRide(){
-  const rideDraft = {
-    service_type: 'ride',
+async function confirmRide(){
+  const confirmBtn = document.getElementById('confirmBtn');
+  confirmBtn.disabled = true;
+  const originalText = confirmBtn.textContent;
+  confirmBtn.textContent = TH.submitting;
+
+  const payload = {
+    customer_line_user_id: '',
+    passenger_name: s2.name || '',
+    passenger_phone: s2.phone || '',
     pickup_address: s1.pickupAddress || '',
+    pickup_note: '',
+    pickup_lat: Number(s1.pickupLat || 0),
+    pickup_lng: Number(s1.pickupLng || 0),
     dropoff_address: s1.dropoffAddress || '',
-    pickup_lat: s1.pickupLat || null,
-    pickup_lng: s1.pickupLng || null,
-    dropoff_lat: s1.dropoffLat || null,
-    dropoff_lng: s1.dropoffLng || null,
-    distance_km: distanceKm || 0,
-    eta_minutes: etaMinutes || null,
-    vehicle_type: s1.vehicle || '',
-    customer_name: s2.name || '',
-    customer_phone: s2.phone || '',
-    passenger_count: s2.people || '',
-    customer_note: s2.note || '',
-    estimated_fare: estimatedFare,
-    submitted_at: new Date().toISOString(),
-    created_from: 'ride-prototype'
+    dropoff_note: s2.note || '',
+    dropoff_lat: Number(s1.dropoffLat || 0),
+    dropoff_lng: Number(s1.dropoffLng || 0),
+    distance_km: Number(distanceKm || 0),
+    estimated_fare: Number(estimatedFare || 0),
+    final_fare: Number(estimatedFare || 0),
+    vehicle_type: mapVehicleType(s1.vehicle || ''),
+    payment_method: 'cod'
   };
 
-  localStorage.setItem('ride_last_submission', JSON.stringify(rideDraft));
-  localStorage.removeItem('ride_step1');
-  localStorage.removeItem('ride_step2');
-  window.location.href = 'success.html';
+  try {
+    const backendUrl = resolveBackendUrl();
+    const res = await fetch(`${backendUrl}/ride/orders`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    });
+
+    const json = await res.json();
+    if(!res.ok || !json?.success){ throw new Error(json?.error || json?.message || 'submit_failed'); }
+
+    const rideSubmission = {
+      service_type: 'ride',
+      order_code: json?.data?.order_code || '-',
+      status: 'new',
+      pickup_address: payload.pickup_address,
+      dropoff_address: payload.dropoff_address,
+      pickup_lat: payload.pickup_lat,
+      pickup_lng: payload.pickup_lng,
+      dropoff_lat: payload.dropoff_lat,
+      dropoff_lng: payload.dropoff_lng,
+      distance_km: payload.distance_km,
+      eta_minutes: etaMinutes || null,
+      vehicle_type: s1.vehicle || '',
+      customer_name: payload.passenger_name,
+      customer_phone: payload.passenger_phone,
+      passenger_count: s2.people || '',
+      customer_note: s2.note || '',
+      estimated_fare: payload.estimated_fare,
+      submitted_at: new Date().toISOString(),
+      created_from: 'ride-api'
+    };
+
+    localStorage.setItem('ride_last_submission', JSON.stringify(rideSubmission));
+    localStorage.removeItem('ride_step1');
+    localStorage.removeItem('ride_step2');
+    window.location.href = 'success.html';
+  } catch (error) {
+    alert(TH.submitFailed);
+    confirmBtn.disabled = false;
+    confirmBtn.textContent = originalText;
+  }
 }
 
-function back(){
-  window.location.href = 'ride2.html';
-}
+function back(){ window.location.href = 'ride2.html'; }
 </script>
 </body>
 </html>

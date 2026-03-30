@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="th">
 <head>
 <meta charset="UTF-8">
@@ -6,16 +6,7 @@
 <title>&#x0E40;&#x0E23;&#x0E35;&#x0E22;&#x0E01;&#x0E23;&#x0E16;&#x0E2A;&#x0E33;&#x0E40;&#x0E23;&#x0E47;&#x0E08;</title>
 <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
-:root{
-  --brand:#18a05e;
-  --brand-dark:#0b6c3c;
-  --accent:#1aa7a1;
-  --ink:#0f172a;
-  --muted:#6b7280;
-  --card:#ffffff;
-  --line:#e5e7eb;
-  --shadow:0 18px 40px rgba(15,23,42,.08);
-}
+:root{--brand:#18a05e;--brand-dark:#0b6c3c;--accent:#1aa7a1;--ink:#0f172a;--muted:#6b7280;--card:#ffffff;--line:#e5e7eb;--shadow:0 18px 40px rgba(15,23,42,.08)}
 *{box-sizing:border-box}
 body{margin:0;font-family:'Kanit',sans-serif;background:radial-gradient(circle at top,#e8f8f0 0%,#f7fbf9 40%,#f2f6f5 100%);color:var(--ink)}
 .app{max-width:520px;margin:0 auto;min-height:100vh;padding:24px 16px}
@@ -45,32 +36,18 @@ body{margin:0;font-family:'Kanit',sans-serif;background:radial-gradient(circle a
     <section class="card" id="summary"></section>
 
     <section class="card">
-      <div class="row">
-        <span>&#x0E04;&#x0E48;&#x0E32;&#x0E42;&#x0E14;&#x0E22;&#x0E2A;&#x0E32;&#x0E23;</span>
-        <span class="price" id="fareValue">-</span>
-      </div>
-      <div class="row">
-        <span>&#x0E23;&#x0E30;&#x0E22;&#x0E30;&#x0E17;&#x0E32;&#x0E07;</span>
-        <span id="distanceValue">-</span>
-      </div>
-      <div class="row">
-        <span>&#x0E40;&#x0E27;&#x0E25;&#x0E32;&#x0E23;&#x0E31;&#x0E1A;&#x0E42;&#x0E14;&#x0E22;&#x0E1B;&#x0E23;&#x0E30;&#x0E21;&#x0E32;&#x0E13;</span>
-        <span id="etaValue">-</span>
-      </div>
-      <div class="row">
-        <span>&#x0E2A;&#x0E16;&#x0E32;&#x0E19;&#x0E30;&#x0E04;&#x0E33;&#x0E2A;&#x0E31;&#x0E48;&#x0E07;</span>
-        <span class="badge">&#x0E01;&#x0E33;&#x0E25;&#x0E31;&#x0E07;&#x0E04;&#x0E49;&#x0E19;&#x0E2B;&#x0E32;&#x0E04;&#x0E19;&#x0E02;&#x0E31;&#x0E1A;</span>
-      </div>
-      <div class="row">
-        <span>&#x0E2A;&#x0E23;&#x0E49;&#x0E32;&#x0E07;&#x0E40;&#x0E21;&#x0E37;&#x0E48;&#x0E2D;</span>
-        <span class="meta" id="submittedAt">-</span>
-      </div>
+      <div class="row"><span>&#x0E40;&#x0E25;&#x0E02;&#x0E17;&#x0E35;&#x0E48;&#x0E04;&#x0E33;&#x0E2A;&#x0E31;&#x0E48;&#x0E07;</span><span id="orderCode">-</span></div>
+      <div class="row"><span>&#x0E04;&#x0E48;&#x0E32;&#x0E42;&#x0E14;&#x0E22;&#x0E2A;&#x0E32;&#x0E23;</span><span class="price" id="fareValue">-</span></div>
+      <div class="row"><span>&#x0E23;&#x0E30;&#x0E22;&#x0E30;&#x0E17;&#x0E32;&#x0E07;</span><span id="distanceValue">-</span></div>
+      <div class="row"><span>&#x0E40;&#x0E27;&#x0E25;&#x0E32;&#x0E23;&#x0E31;&#x0E1A;&#x0E42;&#x0E14;&#x0E22;&#x0E1B;&#x0E23;&#x0E30;&#x0E21;&#x0E32;&#x0E13;</span><span id="etaValue">-</span></div>
+      <div class="row"><span>&#x0E2A;&#x0E16;&#x0E32;&#x0E19;&#x0E30;&#x0E04;&#x0E33;&#x0E2A;&#x0E31;&#x0E48;&#x0E07;</span><span class="badge" id="statusValue">-</span></div>
+      <div class="row"><span>&#x0E2A;&#x0E23;&#x0E49;&#x0E32;&#x0E07;&#x0E40;&#x0E21;&#x0E37;&#x0E48;&#x0E2D;</span><span class="meta" id="submittedAt">-</span></div>
     </section>
 
     <section class="card">
       <button class="primary" type="button" onclick="goHome()">&#x0E40;&#x0E23;&#x0E35;&#x0E22;&#x0E01;&#x0E23;&#x0E16;&#x0E43;&#x0E2B;&#x0E21;&#x0E48;</button>
       <div style="height:10px"></div>
-      <button class="secondary" type="button" onclick="openLatest()">&#x0E14;&#x0E39;&#x0E04;&#x0E33;&#x0E2A;&#x0E31;&#x0E48;&#x0E07;&#x0E25;&#x0E48;&#x0E32;&#x0E2A;&#x0E38;&#x0E14;&#x0E2D;&#x0E35;&#x0E01;&#x0E04;&#x0E23;&#x0E31;&#x0E49;&#x0E07;</button>
+      <button class="secondary" type="button" onclick="openLatest()">&#x0E23;&#x0E35;&#x0E40;&#x0E1F;&#x0E23;&#x0E0A;&#x0E2B;&#x0E19;&#x0E49;&#x0E32;&#x0E19;&#x0E35;&#x0E49;</button>
     </section>
   </div>
 
@@ -78,34 +55,30 @@ body{margin:0;font-family:'Kanit',sans-serif;background:radial-gradient(circle a
 const TH = {
   baht: '\u0E1A\u0E32\u0E17',
   km: '\u0E01\u0E21.',
-  minute: '\u0E19\u0E32\u0E17\u0E35'
+  minute: '\u0E19\u0E32\u0E17\u0E35',
+  statusMap: {
+    new: '\u0E23\u0E2D\u0E2B\u0E32\u0E04\u0E19\u0E02\u0E31\u0E1A',
+    accepted: '\u0E21\u0E35\u0E04\u0E19\u0E02\u0E31\u0E1A\u0E23\u0E31\u0E1A\u0E41\u0E25\u0E49\u0E27',
+    in_progress: '\u0E01\u0E33\u0E25\u0E31\u0E07\u0E40\u0E14\u0E34\u0E19\u0E17\u0E32\u0E07',
+    completed: '\u0E2A\u0E33\u0E40\u0E23\u0E47\u0E08\u0E41\u0E25\u0E49\u0E27',
+    cancelled: '\u0E22\u0E01\u0E40\u0E25\u0E34\u0E01'
+  }
 };
 
 const ride = JSON.parse(localStorage.getItem('ride_last_submission') || '{}');
-if(!ride.pickup_address || !ride.dropoff_address){
-  window.location.href = 'index.html';
-}
+if(!ride.pickup_address || !ride.dropoff_address){ window.location.href = 'index.html'; }
 
 function escapeHtml(value){
   return String(value || '-')
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;')
-    .replace(/'/g, '&#39;');
+    .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+    .replace(/\"/g, '&quot;').replace(/'/g, '&#39;');
 }
 
 function formatDate(value){
   if(!value) return '-';
   const date = new Date(value);
   if(Number.isNaN(date.getTime())) return value;
-  return date.toLocaleString('th-TH', {
-    year: 'numeric',
-    month: 'short',
-    day: 'numeric',
-    hour: '2-digit',
-    minute: '2-digit'
-  });
+  return date.toLocaleString('th-TH', {year:'numeric',month:'short',day:'numeric',hour:'2-digit',minute:'2-digit'});
 }
 
 document.getElementById('summary').innerHTML = `
@@ -118,18 +91,15 @@ document.getElementById('summary').innerHTML = `
   <div class="row"><span>&#x0E2B;&#x0E21;&#x0E32;&#x0E22;&#x0E40;&#x0E2B;&#x0E15;&#x0E38;</span><span>${escapeHtml(ride.customer_note)}</span></div>
 `;
 
+document.getElementById('orderCode').textContent = ride.order_code || '-';
 document.getElementById('fareValue').textContent = ride.estimated_fare ? `${Number(ride.estimated_fare).toLocaleString('th-TH')} ${TH.baht}` : '-';
 document.getElementById('distanceValue').textContent = ride.distance_km ? `${Number(ride.distance_km).toFixed(1)} ${TH.km}` : '-';
 document.getElementById('etaValue').textContent = ride.eta_minutes ? `${Number(ride.eta_minutes)} ${TH.minute}` : '-';
+document.getElementById('statusValue').textContent = TH.statusMap[ride.status] || ride.status || '-';
 document.getElementById('submittedAt').textContent = formatDate(ride.submitted_at);
 
-function goHome(){
-  window.location.href = 'index.html';
-}
-
-function openLatest(){
-  window.location.reload();
-}
+function goHome(){ window.location.href = 'index.html'; }
+function openLatest(){ window.location.reload(); }
 </script>
 </body>
 </html>
